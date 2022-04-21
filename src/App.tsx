@@ -1,8 +1,14 @@
 import React from "react";
+import 'antd/dist/antd.css';
+import GlobalStyles from './global-styles'
+import LoginPage from "./pages/login/login-page";
 
 const App = (): JSX.Element => {
     return (
-        <h1>Hello React project with: TS, SCSS Module!</h1>
+        <React.Fragment>
+            <GlobalStyles/>
+            <LoginPage/>
+        </React.Fragment>
     );
 }
 
