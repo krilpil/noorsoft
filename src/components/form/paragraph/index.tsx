@@ -6,9 +6,14 @@ interface inputForm {
     errorsEmail: string | undefined,
     touchedPassword: boolean | undefined,
     errorsPassword: string | undefined,
+    errorAuthorization: string | undefined
 }
 
-const variantFormParagraph = ({touchedEmail, touchedPassword, errorsEmail, errorsPassword}: inputForm): string => {
+const variantFormParagraph = ({touchedEmail, touchedPassword, errorsEmail, errorsPassword, errorAuthorization}
+                                  : inputForm): string => {
+    if (errorAuthorization) {
+        return errorAuthorization
+    }
     if (touchedEmail && errorsEmail) {
         return errorsEmail
     }
