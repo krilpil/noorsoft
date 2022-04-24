@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
 import useSelector from "../../hooks/use-selector";
 import {useFormik} from 'formik';
@@ -8,6 +8,7 @@ import {Form, Title, Input, Password, Button} from '../../components/form/styled
 import {LoginPageWrapper} from "./styled-components";
 import FormParagraph from "../../components/form/paragraph";
 import {formFetchLoginRequest} from "../../redux/actions/form-actions";
+import {message} from "antd";
 
 const validationSchema = yup.object().shape({
     email: yup
@@ -23,7 +24,7 @@ const validationSchema = yup.object().shape({
 const LoginPage = (): JSX.Element => {
     const dispatch = useDispatch()
     const isWaitButton = useSelector(state => state.form.request)
-    const errorAuthorization = useSelector(state => state.form.user.error)
+    const authorization = useSelector(state => state.form.user.authorization)
 
     const formik = useFormik({
         initialValues: {
@@ -42,19 +43,27 @@ const LoginPage = (): JSX.Element => {
         },
     })
 
+    useEffect(() => {
+        if (authorization === false) {
+            formik.setFieldError('authorization', 'Invalid email or password.')
+        }
+
+        if (authorization === true) {
+            message.success('Successful authorization!')
+        }
+
+    }, [authorization])
+
     return (
         <LoginPageWrapper>
             <Form onSubmit={formik.handleSubmit}>
                 <Title level={1}>Noorsoft</Title>
                 <FormParagraph
-                    touchedEmail={formik.touched.email}
-                    errorsEmail={formik.errors.email}
-                    touchedPassword={formik.touched.password}
-                    errorsPassword={formik.errors.password}
-                    errorAuthorization={errorAuthorization}
+                    errors={formik.errors}
+                    touchedForm={formik.touched.password && formik.touched.email}
                 />
                 <Input
-                    status={(formik.errors.email && formik.touched.email) || !!errorAuthorization ? 'error' : ''}
+                    status={formik.errors.email && formik.touched.email? 'error' : ''}
                     id={'email'}
                     name={'email'}
                     onChange={formik.handleChange}
@@ -64,7 +73,7 @@ const LoginPage = (): JSX.Element => {
                     prefix={<UserOutlined/>}
                 />
                 <Password
-                    status={(formik.errors.password && formik.touched.password) || !!errorAuthorization ? 'error' : ''}
+                    status={formik.errors.password && formik.touched.password ? 'error' : ''}
                     id={'password'}
                     name={'password'}
                     onChange={formik.handleChange}

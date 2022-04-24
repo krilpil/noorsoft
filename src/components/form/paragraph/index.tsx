@@ -1,33 +1,34 @@
 import React from 'react';
 import {Paragraph} from "./styled";
 
-interface inputForm {
-    touchedEmail: boolean | undefined,
-    errorsEmail: string | undefined,
-    touchedPassword: boolean | undefined,
-    errorsPassword: string | undefined,
-    errorAuthorization: string | undefined
+interface Errors {
+    [key: string]: string;
 }
 
-const variantFormParagraph = ({touchedEmail, touchedPassword, errorsEmail, errorsPassword, errorAuthorization}
-                                  : inputForm): string => {
-    if (errorAuthorization) {
-        return errorAuthorization
-    }
-    if (touchedEmail && errorsEmail) {
-        return errorsEmail
-    }
-    if (touchedPassword && errorsPassword) {
-        return errorsPassword
-    }
-    return 'Enter your email and password.'
+interface InputsForm {
+    errors: Errors,
+    touchedForm: boolean | undefined,
 }
 
-const FormParagraph: React.FC<inputForm> = (formParagraph: inputForm): JSX.Element => {
+const variantFormParagraph = ({errors, touchedForm}: InputsForm): string => {
+
+    let errorMessage = String()
+    if (touchedForm && Object.keys(errors).length !== 0) {
+        for (const props in errors) {
+            errorMessage = errors[props]
+        }
+    } else {
+        errorMessage = 'Enter your email and password.'
+    }
+
+    return errorMessage
+}
+
+const FormParagraph: React.FC<InputsForm> = (inputsForm: InputsForm): JSX.Element => {
     return (
         <Paragraph>
             <p>
-                {variantFormParagraph(formParagraph)}
+                {variantFormParagraph(inputsForm)}
             </p>
         </Paragraph>
     )
