@@ -5,7 +5,6 @@ export interface UserAuthorizationData {
 
 export interface UserData extends UserAuthorizationData {
     authorization: boolean,
-    errorAuthorization?: string | null,
     displayName?: string | null,
     phoneNumber?: string | null
 }
