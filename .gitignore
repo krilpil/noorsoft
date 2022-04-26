@@ -3,9 +3,14 @@
 
 # Dependency directories
 node_modules/
+/.github/
+/.firebase/
 
 # Optional npm cache directory
 .npm
 
 # generate output
-dist
+/build/
+
+
+
