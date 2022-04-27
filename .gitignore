@@ -15,5 +15,8 @@ firebase-debug.log
 # Build generated
 /build/
 
+# Project keys
+.env
+
 
 
