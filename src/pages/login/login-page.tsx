@@ -1,14 +1,16 @@
 import React, {useEffect} from 'react';
 import {useDispatch} from "react-redux";
-import useSelector from "../../hooks/use-selector";
 import {useFormik} from 'formik';
 import * as yup from 'yup';
-import {LockOutlined, UserOutlined} from "@ant-design/icons";
-import {Form, Title, Input, Password, Button} from '../../components/form/styled-components'
-import {LoginPageWrapper} from "./styled-components";
-import FormParagraph from "../../components/form/paragraph";
-import {formFetchLoginRequest} from "../../redux/actions/form-actions";
 import {message} from "antd";
+import useSelector from "../../hooks/use-selector";
+import {formFetchLoginRequest} from "../../redux/actions/form-actions";
+import FormParagraph from "../../components/form/paragraph";
+import {LoginPageWrapper} from "./styled-components";
+import {Form, Title, Input, Password, Button} from '../../components/form/styled-components'
+import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
+import {Icon} from "../../components/icons/styled-components";
+
 
 const validationSchema = yup.object().shape({
     email: yup
@@ -63,14 +65,14 @@ const LoginPage = (): JSX.Element => {
                     touchedForm={formik.touched.password && formik.touched.email}
                 />
                 <Input
-                    status={formik.errors.email && formik.touched.email? 'error' : ''}
+                    status={formik.errors.email && formik.touched.email ? 'error' : ''}
                     id={'email'}
                     name={'email'}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                     placeholder="Email"
-                    prefix={<UserOutlined/>}
+                    prefix={<Icon icon={faUserAstronaut}/>}
                 />
                 <Password
                     status={formik.errors.password && formik.touched.password ? 'error' : ''}
@@ -80,7 +82,7 @@ const LoginPage = (): JSX.Element => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     placeholder="Password"
-                    prefix={<LockOutlined/>}
+                    prefix={<Icon icon={faLock}/>}
                 />
                 <Button
                     block
