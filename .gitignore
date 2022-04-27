@@ -3,13 +3,16 @@
 
 # Dependency directories
 node_modules/
+
+# Firebase Hosting
+.firebase
+firebase-debug.log
 /.github/
-/.firebase/
 
 # Optional npm cache directory
 .npm
 
-# generate output
+# Build generated
 /build/
 
 
