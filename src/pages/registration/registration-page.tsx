@@ -17,17 +17,17 @@ const validationSchema = yup.object().shape({
         .string()
         .required('Email is required!')
         .email('Enter a valid email!'),
+    confirmationPassword: yup
+        .string()
+        .oneOf([yup.ref('password')], `Passwords don't match!`)
+        .required('Confirm your password!'),
     password: yup
         .string()
-        .required('Password is required!')
         .min(8, 'The password length is less than 8 characters!')
         .matches(/[A-Z]/, 'The password must contain uppercase letters!')
         .matches(/[a-z]/, 'The password must contain lowercase letters!')
-        .matches(/[0-9]/, 'The password must contain numbers!'),
-    confirmationPassword: yup
-        .string()
-        .required('Confirm your password!')
-        .oneOf([yup.ref('password')], `Passwords don't match!`)
+        .matches(/[0-9]/, 'The password must contain numbers!')
+        .required('Password is required!'),
 })
 
 const RegistrationPage = () => {
@@ -51,7 +51,7 @@ const RegistrationPage = () => {
                 <FormParagraph
                     errors={formik.errors}
                     touchedForm={
-                        formik.touched.password && (formik.touched.email || formik.touched.confirmationPassword)
+                        formik.touched.email && (formik.touched.password || formik.touched.confirmationPassword)
                     }
                 >
                     Enter your email and password to register.
