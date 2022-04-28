@@ -10,6 +10,7 @@ export const Form = styled.form`
   max-width: 350px;
   width: 100%;
   padding: 20px;
+  color: #ffffff
 `
 
 export const Title = styled(AntTitle)`
@@ -36,14 +37,15 @@ export const Button = styled(AntButton)`
   height: auto;
 `
 
-export const Helpers = styled.div`
+export const Helpers = styled.div<{ content: 'between' | 'center' }>`
   display: flex;
-  justify-content: space-between;
+  justify-content: ${props => props.content === 'between' ? 'space-between' : 'center'};
+  gap: ${props => props.content === 'between' ? null : '15px'};
   align-content: space-between;
 `
 
 export const ButtonLink = styled(Button).attrs({
-  type: 'link'
+    type: 'link'
 })`
   color: #ebebeb;
   padding: 0;

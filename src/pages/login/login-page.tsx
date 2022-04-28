@@ -8,8 +8,7 @@ import {formFetchLoginRequest} from "../../redux/actions/form-actions";
 import FormParagraph from "../../components/form/paragraph";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
 import {Form, Title, Input, Password, Button, ButtonLink, Helpers} from '../../components/form/styled-components'
-import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
-import {Icon} from "../../components/icons/styled-components";
+import {IconLock, IconUserAstronaut, IconVK, IconGoogle} from "../../components/icons/styled-components";
 import {Link} from "react-router-dom";
 
 
@@ -46,7 +45,7 @@ const LoginPage = (): JSX.Element => {
         },
     })
 
-    const lostPassword = () => {
+    const notWorking = () => {
         message.info('Temporarily not working')
     }
 
@@ -79,7 +78,7 @@ const LoginPage = (): JSX.Element => {
                     onBlur={formik.handleBlur}
                     value={formik.values.email}
                     placeholder="Email"
-                    prefix={<Icon icon={faUserAstronaut}/>}
+                    prefix={<IconUserAstronaut/>}
                 />
                 <Password
                     status={formik.errors.password && formik.touched.password ? 'error' : ''}
@@ -89,8 +88,12 @@ const LoginPage = (): JSX.Element => {
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
                     placeholder="Password"
-                    prefix={<Icon icon={faLock}/>}
+                    prefix={<IconLock/>}
                 />
+                <Helpers content={'between'}>
+                    <Link to='/registration'><ButtonLink htmlType="button">Registration</ButtonLink></Link>
+                    <ButtonLink onClick={notWorking} htmlType="button">Forgot your password?</ButtonLink>
+                </Helpers>
                 <Button
                     block
                     loading={isWaitButton}
@@ -100,9 +103,10 @@ const LoginPage = (): JSX.Element => {
                 >
                     Log in
                 </Button>
-                <Helpers>
-                    <Link to='/registration'><ButtonLink htmlType="button">Registration</ButtonLink></Link>
-                    <ButtonLink onClick={lostPassword} htmlType="button">Forgot your password?</ButtonLink>
+                <p>or</p>
+                <Helpers content={'center'}>
+                    <IconVK onClick={notWorking} size='3x'/>
+                    <IconGoogle onClick={notWorking} size='3x'/>
                 </Helpers>
             </Form>
         </FormPageWrapper>

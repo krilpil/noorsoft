@@ -1,10 +1,14 @@
 import React from 'react';
 import {Button, Form, Input, Password, Title, ButtonLink, Helpers} from "../../components/form/styled-components";
 import FormParagraph from "../../components/form/paragraph";
-import {Icon} from "../../components/icons/styled-components";
-import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
+import {IconGoogle, IconLock, IconUserAstronaut, IconVK} from "../../components/icons/styled-components";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
 import {Link} from "react-router-dom";
+import {message} from "antd";
+
+const notWorking = () => {
+    message.info('Temporarily not working')
+}
 
 const RegistrationPage = () => {
     return (
@@ -21,20 +25,23 @@ const RegistrationPage = () => {
                     id={'email'}
                     name={'email'}
                     placeholder="Email"
-                    prefix={<Icon icon={faUserAstronaut}/>}
+                    prefix={<IconUserAstronaut/>}
                 />
                 <Password
                     id={'password'}
                     name={'password'}
                     placeholder="Password"
-                    prefix={<Icon icon={faLock}/>}
+                    prefix={<IconLock/>}
                 />
                 <Password
                     id={'password'}
                     name={'password'}
                     placeholder="Confirmation"
-                    prefix={<Icon icon={faLock}/>}
+                    prefix={<IconLock/>}
                 />
+                <Helpers content={'between'}>
+                    <Link to='/login'><ButtonLink htmlType="button">Login</ButtonLink></Link>
+                </Helpers>
                 <Button
                     block
                     id={'button'}
@@ -42,8 +49,10 @@ const RegistrationPage = () => {
                 >
                     Registration
                 </Button>
-                <Helpers>
-                    <Link to='/login'><ButtonLink htmlType="button">Login</ButtonLink></Link>
+                <p>or</p>
+                <Helpers content={'center'}>
+                    <IconVK onClick={notWorking} size='3x'/>
+                    <IconGoogle onClick={notWorking} size='3x'/>
                 </Helpers>
             </Form>
         </FormPageWrapper>
