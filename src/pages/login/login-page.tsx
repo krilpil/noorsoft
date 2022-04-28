@@ -6,7 +6,7 @@ import {message} from "antd";
 import useSelector from "../../hooks/use-selector";
 import {formFetchLoginRequest} from "../../redux/actions/form-actions";
 import FormParagraph from "../../components/form/paragraph";
-import {LoginPageWrapper} from "./styled-components";
+import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
 import {Form, Title, Input, Password, Button} from '../../components/form/styled-components'
 import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import {Icon} from "../../components/icons/styled-components";
@@ -57,13 +57,15 @@ const LoginPage = (): JSX.Element => {
     }, [authorization])
 
     return (
-        <LoginPageWrapper>
+        <FormPageWrapper>
             <Form onSubmit={formik.handleSubmit}>
-                <Title level={1}>Noorsoft</Title>
+                <Title level={1}>Login</Title>
                 <FormParagraph
                     errors={formik.errors}
                     touchedForm={formik.touched.password && formik.touched.email}
-                />
+                >
+                    Enter your email and password to log in.
+                </FormParagraph>
                 <Input
                     status={formik.errors.email && formik.touched.email ? 'error' : ''}
                     id={'email'}
@@ -94,7 +96,7 @@ const LoginPage = (): JSX.Element => {
                     Login
                 </Button>
             </Form>
-        </LoginPageWrapper>
+        </FormPageWrapper>
     );
 };
 

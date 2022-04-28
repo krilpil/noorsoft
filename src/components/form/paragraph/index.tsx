@@ -5,12 +5,13 @@ interface Errors {
     [key: string]: string;
 }
 
-interface InputsForm {
+interface FormParagraphProps {
+    children: React.ReactNode,
     errors: Errors,
     touchedForm: boolean | undefined,
 }
 
-const variantFormParagraph = ({errors, touchedForm}: InputsForm): string => {
+const variantFormParagraph = ({errors, touchedForm, children}: FormParagraphProps): string => {
 
     let errorMessage = String()
     if (touchedForm && Object.keys(errors).length !== 0) {
@@ -18,17 +19,17 @@ const variantFormParagraph = ({errors, touchedForm}: InputsForm): string => {
             errorMessage = errors[props]
         }
     } else {
-        errorMessage = 'Enter your email and password.'
+        errorMessage = `${children}`
     }
 
     return errorMessage
 }
 
-const FormParagraph: React.FC<InputsForm> = (inputsForm: InputsForm): JSX.Element => {
+const FormParagraph: React.FC<FormParagraphProps> = (formParagraphProps: FormParagraphProps): JSX.Element => {
     return (
         <Paragraph>
             <p>
-                {variantFormParagraph(inputsForm)}
+                {variantFormParagraph(formParagraphProps)}
             </p>
         </Paragraph>
     )

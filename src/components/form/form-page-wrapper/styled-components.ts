@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LoginPageWrapper = styled.div`
+export const FormPageWrapper = styled.div`
   display: grid;
   height: 100vh;
   width: 100vw;
