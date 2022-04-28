@@ -19,8 +19,7 @@ const validationSchema = yup.object().shape({
         .required('Email is required!'),
     password: yup
         .string()
-        .min(8, 'The password length is less than 8 characters!')
-        .required('Password is required!'),
+        .required('Password is required!')
 })
 
 const LoginPage = (): JSX.Element => {

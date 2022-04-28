@@ -5,38 +5,85 @@ import {IconGoogle, IconLock, IconUserAstronaut, IconVK} from "../../components/
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
 import {Link} from "react-router-dom";
 import {message} from "antd";
+import * as yup from "yup";
+import {useFormik} from "formik";
 
 const notWorking = () => {
     message.info('Temporarily not working')
 }
 
+const validationSchema = yup.object().shape({
+    email: yup
+        .string()
+        .required('Email is required!')
+        .email('Enter a valid email!'),
+    password: yup
+        .string()
+        .required('Password is required!')
+        .min(8, 'The password length is less than 8 characters!')
+        .matches(/[A-Z]/, 'The password must contain uppercase letters!')
+        .matches(/[a-z]/, 'The password must contain lowercase letters!')
+        .matches(/[0-9]/, 'The password must contain numbers!'),
+    confirmationPassword: yup
+        .string()
+        .required('Confirm your password!')
+        .oneOf([yup.ref('password')], `Passwords don't match!`)
+})
+
 const RegistrationPage = () => {
+    const formik = useFormik({
+        initialValues: {
+            email: '',
+            password: '',
+            confirmationPassword: ''
+        },
+        validateOnBlur: true,
+        validationSchema: validationSchema,
+        onSubmit: (values) => {
+            console.log(values)
+        },
+    })
+
     return (
         <FormPageWrapper>
-            <Form>
+            <Form onSubmit={formik.handleSubmit}>
                 <Title level={1}>Registration</Title>
                 <FormParagraph
-                    errors={{}}
-                    touchedForm={false}
+                    errors={formik.errors}
+                    touchedForm={
+                        formik.touched.password && (formik.touched.email || formik.touched.confirmationPassword)
+                    }
                 >
                     Enter your email and password to register.
                 </FormParagraph>
                 <Input
+                    status={formik.errors.email && formik.touched.email ? 'error' : ''}
                     id={'email'}
                     name={'email'}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.email}
                     placeholder="Email"
                     prefix={<IconUserAstronaut/>}
                 />
                 <Password
+                    status={formik.errors.password && formik.touched.password ? 'error' : ''}
                     id={'password'}
                     name={'password'}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
                     placeholder="Password"
                     prefix={<IconLock/>}
                 />
                 <Password
-                    id={'password'}
-                    name={'password'}
-                    placeholder="Confirmation"
+                    status={formik.errors.confirmationPassword && formik.touched.confirmationPassword ? 'error' : ''}
+                    id={'confirmationPassword'}
+                    name={'confirmationPassword'}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.confirmationPassword}
+                    placeholder="Confirmation password"
                     prefix={<IconLock/>}
                 />
                 <Helpers content={'between'}>
@@ -46,6 +93,7 @@ const RegistrationPage = () => {
                     block
                     id={'button'}
                     htmlType={'submit'}
+                    disabled={!formik.isValid || !formik.dirty}
                 >
                     Registration
                 </Button>
