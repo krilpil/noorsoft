@@ -1,10 +1,10 @@
 import React from 'react';
-import {Button, Form, Input, Password, Title} from "../../components/form/styled-components";
+import {Button, Form, Input, Password, Title, ButtonLink, Helpers} from "../../components/form/styled-components";
 import FormParagraph from "../../components/form/paragraph";
 import {Icon} from "../../components/icons/styled-components";
 import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
-import {ButtonLink, Helpers} from "./styled-components";
+import {Link} from "react-router-dom";
 
 const RegistrationPage = () => {
     return (
@@ -43,8 +43,7 @@ const RegistrationPage = () => {
                     Registration
                 </Button>
                 <Helpers>
-                    <ButtonLink htmlType="button">Login</ButtonLink>
-                    <ButtonLink htmlType="button">Forgot your password?</ButtonLink>
+                    <Link to='/login'><ButtonLink htmlType="button">Login</ButtonLink></Link>
                 </Helpers>
             </Form>
         </FormPageWrapper>

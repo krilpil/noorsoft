@@ -7,9 +7,10 @@ import useSelector from "../../hooks/use-selector";
 import {formFetchLoginRequest} from "../../redux/actions/form-actions";
 import FormParagraph from "../../components/form/paragraph";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
-import {Form, Title, Input, Password, Button} from '../../components/form/styled-components'
+import {Form, Title, Input, Password, Button, ButtonLink, Helpers} from '../../components/form/styled-components'
 import {faLock, faUserAstronaut} from "@fortawesome/free-solid-svg-icons";
 import {Icon} from "../../components/icons/styled-components";
+import {Link} from "react-router-dom";
 
 
 const validationSchema = yup.object().shape({
@@ -44,6 +45,10 @@ const LoginPage = (): JSX.Element => {
             )
         },
     })
+
+    const lostPassword = () => {
+        message.info('Temporarily not working')
+    }
 
     useEffect(() => {
         if (authorization === false) {
@@ -93,8 +98,12 @@ const LoginPage = (): JSX.Element => {
                     htmlType={'submit'}
                     disabled={(!formik.isValid || !formik.dirty) || isWaitButton}
                 >
-                    Login
+                    Log in
                 </Button>
+                <Helpers>
+                    <Link to='/registration'><ButtonLink htmlType="button">Registration</ButtonLink></Link>
+                    <ButtonLink onClick={lostPassword} htmlType="button">Forgot your password?</ButtonLink>
+                </Helpers>
             </Form>
         </FormPageWrapper>
     );
