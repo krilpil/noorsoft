@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Button, Form, Input, Password, Title, ButtonLink, Helpers} from "../../components/form/styled-components";
 import FormParagraph from "../../components/form/paragraph";
 import {IconGoogle, IconLock, IconUserAstronaut, IconVK} from "../../components/icons/styled-components";
@@ -7,16 +7,16 @@ import {Link} from "react-router-dom";
 import {message} from "antd";
 import * as yup from "yup";
 import {useFormik} from "formik";
+import {useDispatch} from "react-redux";
+import {formFetchSignupRequest} from "../../redux/actions/form-actions";
+import useSelector from "../../hooks/use-selector";
+
 
 const notWorking = () => {
     message.info('Temporarily not working')
 }
 
 const validationSchema = yup.object().shape({
-    email: yup
-        .string()
-        .required('Email is required!')
-        .email('Enter a valid email!'),
     confirmationPassword: yup
         .string()
         .oneOf([yup.ref('password')], `Passwords don't match!`)
@@ -28,9 +28,18 @@ const validationSchema = yup.object().shape({
         .matches(/[a-z]/, 'The password must contain lowercase letters!')
         .matches(/[0-9]/, 'The password must contain numbers!')
         .required('Password is required!'),
+    email: yup
+        .string()
+        .required('Email is required!')
+        .email('Enter a valid email!')
+        .matches(/\.[-0-9A-Za-z]{2,}/, 'Enter a valid email!')
 })
 
-const RegistrationPage = () => {
+const SignupPage = () => {
+    const dispatch = useDispatch()
+    const isRequest = useSelector(state => state.form.request)
+    const authorization = useSelector(state => state.form.user.authorization)
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -40,14 +49,30 @@ const RegistrationPage = () => {
         validateOnBlur: true,
         validationSchema: validationSchema,
         onSubmit: (values) => {
-            console.log(values)
+            dispatch(
+                formFetchSignupRequest({
+                    email: values.email,
+                    password: values.password
+                })
+            )
         },
     })
+
+    useEffect(() => {
+        if (!authorization && !isRequest) {
+            formik.setFieldError('signup"', 'This email address is already registered!')
+            console.log(formik.errors)
+        }
+
+        if (authorization) {
+            message.success('Successful registration!')
+        }
+    }, [isRequest])
 
     return (
         <FormPageWrapper>
             <Form onSubmit={formik.handleSubmit}>
-                <Title level={1}>Registration</Title>
+                <Title level={1}>Signup</Title>
                 <FormParagraph
                     errors={formik.errors}
                     touchedForm={
@@ -91,11 +116,12 @@ const RegistrationPage = () => {
                 </Helpers>
                 <Button
                     block
+                    loading={isRequest}
                     id={'button'}
                     htmlType={'submit'}
-                    disabled={!formik.isValid || !formik.dirty}
+                    disabled={(!formik.isValid || !formik.dirty) || isRequest}
                 >
-                    Registration
+                    Sign up
                 </Button>
                 <p>or</p>
                 <Helpers content={'center'}>
@@ -107,4 +133,4 @@ const RegistrationPage = () => {
     );
 };
 
-export default RegistrationPage;
+export default SignupPage;

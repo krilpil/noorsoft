@@ -24,7 +24,7 @@ const validationSchema = yup.object().shape({
 
 const LoginPage = (): JSX.Element => {
     const dispatch = useDispatch()
-    const isWaitButton = useSelector(state => state.form.request)
+    const isRequest = useSelector(state => state.form.request)
     const authorization = useSelector(state => state.form.user.authorization)
 
     const formik = useFormik({
@@ -34,7 +34,7 @@ const LoginPage = (): JSX.Element => {
         },
         validateOnBlur: true,
         validationSchema: validationSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
             dispatch(
                 formFetchLoginRequest({
                     email: values.email,
@@ -49,15 +49,15 @@ const LoginPage = (): JSX.Element => {
     }
 
     useEffect(() => {
-        if (authorization === false) {
+        if (!authorization && !isRequest) {
             formik.setFieldError('authorization', 'Invalid email or password.')
+            console.log(formik.errors)
         }
 
-        if (authorization === true) {
+        if (authorization) {
             message.success('Successful authorization!')
         }
-
-    }, [authorization])
+    }, [isRequest])
 
     return (
         <FormPageWrapper>
@@ -90,15 +90,15 @@ const LoginPage = (): JSX.Element => {
                     prefix={<IconLock/>}
                 />
                 <Helpers content={'between'}>
-                    <Link to='/registration'><ButtonLink htmlType="button">Registration</ButtonLink></Link>
+                    <Link to='/registration'><ButtonLink htmlType="button">Signup</ButtonLink></Link>
                     <ButtonLink onClick={notWorking} htmlType="button">Forgot your password?</ButtonLink>
                 </Helpers>
                 <Button
                     block
-                    loading={isWaitButton}
+                    loading={isRequest}
                     id={'button'}
                     htmlType={'submit'}
-                    disabled={(!formik.isValid || !formik.dirty) || isWaitButton}
+                    disabled={(!formik.isValid || !formik.dirty) || isRequest}
                 >
                     Log in
                 </Button>

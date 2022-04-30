@@ -1,26 +1,50 @@
 import {takeLatest, all, call, put} from 'redux-saga/effects'
-import {FORM_FETCH_LOGIN_REQUEST} from "../constants/form";
-import {userAuthorization} from "../../api/user-authorization";
-import {UserAuthorizationData, UserData} from "../../types/user-type";
-import {formFetchLoginSuccess, formFetchLoginFailure} from "../actions/form-actions";
+import {FORM_FETCH_LOGIN_REQUEST, FORM_FETCH_SIGNUP_REQUEST} from "../constants/form-constants";
 
-export function* workerFormRequest(action: { type: string, payload: UserAuthorizationData }): unknown {
-    const responseAuthorization: UserData = yield call(userAuthorization, {
+import {userLogin} from "../../api/user-login";
+import {userSignup} from "../../api/user-signup";
+
+import {UserFormData, UserData} from "../../types/user-type";
+import {
+    formFetchLoginSuccess,
+    formFetchLoginFailure,
+    formFetchSignupSuccess,
+    formFetchSignupFailure
+} from "../actions/form-actions";
+
+export function* workerLoginFormRequest(action: { type: string, payload: UserFormData }): unknown {
+    const responseLogin: UserData = yield call(userLogin, {
         email: action.payload.email,
         password: action.payload.password
     })
 
-    responseAuthorization.authorization ?
-        yield put(formFetchLoginSuccess(responseAuthorization)) :
-        yield put(formFetchLoginFailure(responseAuthorization))
+    responseLogin.authorization ?
+        yield put(formFetchLoginSuccess(responseLogin)) :
+        yield put(formFetchLoginFailure(responseLogin))
 }
 
-export function* watchFormRequest() {
-    yield takeLatest(FORM_FETCH_LOGIN_REQUEST, workerFormRequest)
+export function* workerSignupFormRequest(action: { type: string, payload: UserFormData }): unknown {
+    const responseSignup: UserData = yield call(userSignup, {
+        email: action.payload.email,
+        password: action.payload.password
+    })
+
+    responseSignup.authorization ?
+        yield put(formFetchSignupSuccess(responseSignup)) :
+        yield put(formFetchSignupFailure(responseSignup))
+}
+
+export function* watchLoginFormRequest() {
+    yield takeLatest(FORM_FETCH_LOGIN_REQUEST, workerLoginFormRequest)
+}
+
+export function* watchSignupFormRequest() {
+    yield takeLatest(FORM_FETCH_SIGNUP_REQUEST, workerSignupFormRequest)
 }
 
 export default function* rootSaga() {
     yield all([
-        watchFormRequest()
+        watchLoginFormRequest(),
+        watchSignupFormRequest()
     ])
 }
