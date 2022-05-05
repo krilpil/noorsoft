@@ -9,7 +9,7 @@ import FormParagraph from "../../components/form/paragraph";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
 import {Form, Title, Input, Password, Button, ButtonLink, Helpers} from '../../components/form/styled-components'
 import {IconLock, IconUserAstronaut, IconVK, IconGoogle} from "../../components/icons/styled-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const validationSchema = yup.object().shape({
     email: yup
@@ -22,6 +22,7 @@ const validationSchema = yup.object().shape({
 })
 
 const LoginPage = (): JSX.Element => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const isRequest = useSelector(state => state.form.request)
     const authorization = useSelector(state => state.form.user.authorization)
@@ -54,7 +55,7 @@ const LoginPage = (): JSX.Element => {
         }
 
         if (authorization) {
-            message.success('Successful authorization!')
+            navigate('/home')
         }
     }, [isRequest])
 

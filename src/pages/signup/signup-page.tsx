@@ -3,14 +3,13 @@ import {Button, Form, Input, Password, Title, ButtonLink, Helpers} from "../../c
 import FormParagraph from "../../components/form/paragraph";
 import {IconGoogle, IconLock, IconUserAstronaut, IconVK} from "../../components/icons/styled-components";
 import {FormPageWrapper} from "../../components/form/form-page-wrapper/styled-components";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {message} from "antd";
 import * as yup from "yup";
 import {useFormik} from "formik";
 import {useDispatch} from "react-redux";
 import {formFetchSignupRequest} from "../../redux/actions/form-actions";
 import useSelector from "../../hooks/use-selector";
-
 
 const notWorking = () => {
     message.info('Temporarily not working')
@@ -36,6 +35,7 @@ const validationSchema = yup.object().shape({
 })
 
 const SignupPage = () => {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const isRequest = useSelector(state => state.form.request)
     const authorization = useSelector(state => state.form.user.authorization)
@@ -65,7 +65,7 @@ const SignupPage = () => {
         }
 
         if (authorization) {
-            message.success('Successful registration!')
+            navigate('/home')
         }
     }, [isRequest])
 
