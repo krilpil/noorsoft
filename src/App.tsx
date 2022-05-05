@@ -4,6 +4,7 @@ import 'antd/dist/antd.css';
 import GlobalStyles from './global-styles'
 import LoginPage from "./pages/login/login-page";
 import SignupPage from "./pages/signup/signup-page";
+import HomePage from "./pages/home/home-page";
 
 const App = (): JSX.Element => {
     return (
@@ -12,9 +13,9 @@ const App = (): JSX.Element => {
             <Routes>
                 <Route path='/registration' element={<SignupPage/>}/>
                 <Route path='/login' element={<LoginPage/>}/>
-                <Route path='*' element={<LoginPage/>}/>
+                <Route path='/home' element={<HomePage/>}/>
+                <Route path='*' element={<HomePage/>}/>
             </Routes>
-
         </React.Fragment>
     );
 }

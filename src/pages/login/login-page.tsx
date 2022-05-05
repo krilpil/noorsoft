@@ -11,7 +11,6 @@ import {Form, Title, Input, Password, Button, ButtonLink, Helpers} from '../../c
 import {IconLock, IconUserAstronaut, IconVK, IconGoogle} from "../../components/icons/styled-components";
 import {Link} from "react-router-dom";
 
-
 const validationSchema = yup.object().shape({
     email: yup
         .string()
