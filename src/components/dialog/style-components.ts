@@ -1,28 +1,28 @@
-import styled from "styled-components";
-import {Badge as AntBadge, Typography, Avatar as AntAvatar} from "antd";
+import styled from 'styled-components';
+import { Badge as AntBadge, Typography, Avatar as AntAvatar } from 'antd';
 
 export const Avatar = styled(AntAvatar).attrs({
-    size: 50
-})``
+  size: 50,
+})``;
 
 export const Name = styled.span`
   font-size: 1rem;
   font-weight: 700;
   color: #ffffff;
-`
+`;
 
 export const Text = styled(Typography.Paragraph).attrs({
-    ellipsis: {rows: 1}
+  ellipsis: { rows: 1 },
 })`
   &.ant-typography {
     color: #ffffff;
     margin-bottom: 0;
   }
-`
+`;
 
 export const Details = styled.div`
   display: grid;
-`
+`;
 
 export const Item = styled.div`
   display: grid;
@@ -30,11 +30,11 @@ export const Item = styled.div`
   grid-gap: 15px;
   cursor: pointer;
   padding: 10px 20px;
-  
+
   &:hover {
     background-color: #3596fe;
   }
-`
+`;
 
 export const Badge = styled(AntBadge)`
   & .ant-badge-count {
@@ -43,4 +43,4 @@ export const Badge = styled(AntBadge)`
     color: #1890ff;
   }
   align-self: center;
-`
+`;

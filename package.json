@@ -39,8 +39,13 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "lint": "eslint --ext .ts,.tsx src --fix",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 100
   },
   "eslintConfig": {
     "extends": [
@@ -63,9 +68,19 @@
   "devDependencies": {
     "@types/jest": "^27.4.1",
     "@types/redux-mock-store": "^1.0.3",
+    "@typescript-eslint/eslint-plugin": "^5.28.0",
+    "@typescript-eslint/parser": "^5.28.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+    "eslint": "^8.18.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.30.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "19.0.0",
     "jsdom-global": "3.0.2",
+    "prettier": "^2.7.1",
     "ts-jest": "^27.1.4"
   }
 }
