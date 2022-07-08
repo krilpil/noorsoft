@@ -23,7 +23,6 @@ import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { formFetchSignupRequest } from '../../redux/actions/form-actions';
 import useSelector from '../../hooks/use-selector';
-import { RootState } from '../../redux/store';
 
 const notWorking = () => {
   message.info('Temporarily not working');
@@ -51,8 +50,7 @@ const validationSchema = yup.object().shape({
 const SignupPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const isRequest = useSelector((state) => state.form.request);
-  const isRequest = useSelector((state: RootState) => state.form.request);
+  const isRequest = useSelector((state) => state.form.request);
   const authorization = useSelector((state) => state.form.user.authorization);
 
   const formik = useFormik({
@@ -131,6 +129,9 @@ const SignupPage = () => {
         <Helpers content={'between'}>
           <Link to="/login">
             <ButtonLink htmlType="button">Login</ButtonLink>
+          </Link>
+          <Link to="/forgot-password">
+            <ButtonLink htmlType="button">Forgot your password?</ButtonLink>
           </Link>
         </Helpers>
         <Button

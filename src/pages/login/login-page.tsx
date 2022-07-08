@@ -101,7 +101,7 @@ const LoginPage = (): JSX.Element => {
           <Link to="/signup">
             <ButtonLink htmlType="button">Signup</ButtonLink>
           </Link>
-          <Link to="/reset">
+          <Link to="/forgot-password">
             <ButtonLink htmlType="button">Forgot your password?</ButtonLink>
           </Link>
         </Helpers>
