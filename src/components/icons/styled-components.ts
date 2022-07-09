@@ -8,6 +8,7 @@ import {
   faCommentDots,
   faCommentSlash,
   faComments,
+  faPaperPlane,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faComments as faCommentsRegular } from '@fortawesome/free-regular-svg-icons';
@@ -18,7 +19,7 @@ const formIcon = css`
   width: 0.7rem;
 `;
 
-/* ICONS FORM */
+/*ICONS FORM */
 
 export const IconLock = styled(FontAwesomeIcon).attrs({
   icon: faLock,
@@ -44,7 +45,7 @@ export const IconUserAstronaut = styled(FontAwesomeIcon).attrs({
   ${formIcon}
 `;
 
-/* ICONS BRANDS */
+/*ICONS BRANDS */
 
 const iconHelper = css`
   color: #ffffff;
@@ -62,7 +63,7 @@ export const IconGoogle = styled(FontAwesomeIcon).attrs({
   ${iconHelper}
 `;
 
-/* ICONS DIALOGS */
+/*ICONS DIALOGS */
 
 const IconDialogs = css<{ active: boolean }>`
   width: 1.4rem;
@@ -100,4 +101,11 @@ export const IconClose = styled(FontAwesomeIcon).attrs({
   size: '2x',
 })`
   ${IconDialogs}
+`;
+
+export const IconInputChatButton = styled(FontAwesomeIcon).attrs({
+  icon: faPaperPlane,
+  size: '2x',
+})`
+  color: #b2b2b2;
 `;

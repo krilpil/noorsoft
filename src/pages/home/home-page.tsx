@@ -1,22 +1,15 @@
 import React from 'react';
-import {
-  Layout,
-  Sider,
-  Title,
-  Input,
-  SideHeader,
-  DialogSelection,
-  DialogBlock,
-} from './styled-components';
+import { Layout, Sider, Title, SideHeader, DialogBlock, InputSider } from './styled-components';
 import {
   IconCheck,
   IconClose,
   IconSave,
   IconSearchInput,
-  IconStartDialog,
 } from '../../components/icons/styled-components';
 import { Helpers } from '../../components/form/styled-components';
 import Message from '../../components/dialog/dialog';
+import ChatInput from '../../components/chat/chat-input/chat-input';
+import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
 
 const HomePage = () => {
   return (
@@ -24,7 +17,7 @@ const HomePage = () => {
       <Sider>
         <SideHeader>
           <Title level={3}>Noorsoft</Title>
-          <Input placeholder={'Search here...'} prefix={<IconSearchInput />} />
+          <InputSider placeholder={'Search here...'} prefix={<IconSearchInput />} />
           <Helpers content={'between'}>
             <IconCheck active={true} title={'Active dialogs'} />
             <IconSave active={false} title={'Saved dialogs'} />
@@ -34,7 +27,7 @@ const HomePage = () => {
         <Message
           src={'https://upload.wikimedia.org/wikipedia/ru/thumb/4/4c/Neo2.jpg/274px-Neo2.jpg'}
           name={'Neo'}
-          message={"I shouldn't have chosen the red pill"}
+          message={'I shouldnt have chosen the red pill'}
           unread={1}
         />
         <Message
@@ -50,7 +43,7 @@ const HomePage = () => {
             'https://cdnb.artstation.com/p/assets/images/images/033/670/305/large/marcin-blaszczak-m-coat-01.jpg?1610270916'
           }
           name={'Morpheus'}
-          message={"Aren't you interested in pills?"}
+          message={'Arent you interested in pills?'}
           unread={0}
         />
         <Message
@@ -63,10 +56,8 @@ const HomePage = () => {
         />
       </Sider>
       <DialogBlock>
-        <DialogSelection>
-          <IconStartDialog />
-          Choose a chat
-        </DialogSelection>
+        <ChatDialog />
+        <ChatInput />
       </DialogBlock>
     </Layout>
   );

@@ -14,7 +14,7 @@ import {
 } from '../constants/form-constants';
 import { UserFormData, UserData, UserForgotPasswordData } from '../../types/user-type';
 
-// User login
+//User login
 export const formFetchLoginRequest = (UserLoginData: UserFormData) => ({
   type: FORM_FETCH_LOGIN_REQUEST,
   payload: UserLoginData,
@@ -30,7 +30,7 @@ export const formFetchLoginFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-// User signup
+//User signup
 export const formFetchSignupRequest = (UserSignupData: UserFormData) => ({
   type: FORM_FETCH_SIGNUP_REQUEST,
   payload: UserSignupData,
@@ -46,7 +46,7 @@ export const formFetchSignupFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-// User forgot password
+//User forgot password
 export const formFetchForgotRequest = (UserForgotPasswordData: UserForgotPasswordData) => ({
   type: FORM_FETCH_FORGOT_REQUEST,
   payload: UserForgotPasswordData,
@@ -62,7 +62,7 @@ export const formFetchForgotFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-// User reset password
+//User reset password
 export const formFetchResetRequest = (UserResetPasswordData: {
   password: string;
   code: string | null;

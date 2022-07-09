@@ -19,7 +19,7 @@ export const Title = styled(Typography.Title)`
   }
 `;
 
-export const Input = styled(AntInput)`
+export const InputSider = styled(AntInput)`
   & input.ant-input {
     background-color: #3596fe;
     color: #ffffff;
@@ -42,16 +42,8 @@ export const SideHeader = styled.div`
   grid-gap: 20px;
 `;
 
-/* DIALOG BLOCK */
+/*DIALOG BLOCK */
 
 export const DialogBlock = styled(Layout)`
   background-color: #f6f9fa;
-`;
-
-export const DialogSelection = styled(Layout.Content)`
-  color: #3596fe;
-  display: grid;
-  grid-gap: 15px;
-  justify-items: center;
-  align-content: center;
 `;

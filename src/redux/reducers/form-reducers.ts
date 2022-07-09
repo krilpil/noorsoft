@@ -28,7 +28,7 @@ interface FormAction {
 
 const formReducer = (state = initialState, action: FormAction) => {
   switch (action.type) {
-    // User login
+    //User login
     case FORM_FETCH_LOGIN_REQUEST:
       return {
         ...state,
@@ -46,7 +46,7 @@ const formReducer = (state = initialState, action: FormAction) => {
         request: false,
         user: action.payload,
       };
-    // User signup
+    //User signup
     case FORM_FETCH_SIGNUP_REQUEST:
       return {
         ...state,
@@ -64,7 +64,7 @@ const formReducer = (state = initialState, action: FormAction) => {
         request: false,
         user: action.payload,
       };
-    // User forgot password
+    //User forgot password
     case FORM_FETCH_FORGOT_REQUEST:
       return {
         ...state,
@@ -82,7 +82,7 @@ const formReducer = (state = initialState, action: FormAction) => {
         request: false,
         user: action.payload,
       };
-    // User reset password
+    //User reset password
     case FORM_FETCH_RESET_REQUEST:
       return {
         ...state,
