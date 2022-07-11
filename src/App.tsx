@@ -17,8 +17,7 @@ const App = (): JSX.Element => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/home" element={<HomePage />} />
-        <Route path="*" element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
       </Routes>
     </React.Fragment>
   );

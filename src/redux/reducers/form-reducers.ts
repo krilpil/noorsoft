@@ -18,6 +18,9 @@ const initialState = {
   error: false,
   user: {
     authorization: false,
+    email: null,
+    token: null,
+    id: null,
   },
 };
 

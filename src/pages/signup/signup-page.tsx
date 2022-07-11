@@ -20,9 +20,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { useDispatch } from 'react-redux';
 import { formFetchSignupRequest } from '../../redux/actions/form-actions';
-import useSelector from '../../hooks/use-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
 const notWorking = () => {
   message.info('Temporarily not working');
@@ -49,9 +48,9 @@ const validationSchema = yup.object().shape({
 
 const SignupPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isRequest = useSelector((state) => state.form.request);
-  const authorization = useSelector((state) => state.form.user.authorization);
+  const dispatch = useAppDispatch();
+  const isRequest = useAppSelector((state) => state.form.request);
+  const authorization = useAppSelector((state) => state.form.user.authorization);
 
   const formik = useFormik({
     initialValues: {

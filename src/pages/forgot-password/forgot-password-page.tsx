@@ -13,9 +13,8 @@ import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { useDispatch } from 'react-redux';
 import { formFetchForgotRequest } from '../../redux/actions/form-actions';
-import useSelector from '../../hooks/use-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
 
 const validationSchema = yup.object().shape({
@@ -26,8 +25,8 @@ const ForgotPasswordPage = () => {
   const [timeReturnSend, setTimeReturnSend] = useState(60);
   const [isCountingTime, setIsCountingTime] = useState(false);
 
-  const dispatch = useDispatch();
-  const isRequest = useSelector((state) => state.form.request);
+  const dispatch = useAppDispatch();
+  const isRequest = useAppSelector((state) => state.form.request);
 
   const formik = useFormik({
     initialValues: {

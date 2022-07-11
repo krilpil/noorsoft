@@ -6,9 +6,8 @@ import { Button, Form, Input, Title } from '../../components/form/styled-compone
 import FormParagraph from '../../components/form/paragraph';
 import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 import { formFetchResetRequest } from '../../redux/actions/form-actions';
-import useSelector from '../../hooks/use-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
 
 const validationSchema = yup.object().shape({
@@ -26,11 +25,11 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPasswordPage = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const isRequest = useSelector((state) => state.form.request);
-  const error = useSelector((state) => state.form.error);
+  const isRequest = useAppSelector((state) => state.form.request);
+  const error = useAppSelector((state) => state.form.error);
 
   const formik = useFormik({
     initialValues: {

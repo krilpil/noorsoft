@@ -9,34 +9,23 @@ const initialization = initializeApp(firebaseConfig);
 export const userLogin = async (userLoginData: UserFormData): Promise<UserData> => {
   const auth = getAuth(initialization);
 
-  const loginResponse = ({
-    authorization,
-    email,
-    phoneNumber,
-    displayName,
-  }: UserData): UserData => {
-    return {
-      authorization: authorization,
-      email: email,
-      displayName: displayName,
-      phoneNumber: phoneNumber,
-    };
-  };
-
   return signInWithEmailAndPassword(auth, userLoginData.email, userLoginData.password)
     .then((userCredential) => {
       const { user } = userCredential;
 
-      return loginResponse({
+      return {
         authorization: true,
-        phoneNumber: user.phoneNumber,
         email: user.email,
-        displayName: user.displayName,
-      });
+        token: user.refreshToken,
+        id: user.uid,
+      };
     })
     .catch(() => {
-      return loginResponse({
+      return {
         authorization: false,
-      });
+        email: null,
+        token: null,
+        id: null,
+      };
     });
 };

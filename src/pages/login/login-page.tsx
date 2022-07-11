@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { message } from 'antd';
-import useSelector from '../../hooks/use-selector';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { formFetchLoginRequest } from '../../redux/actions/form-actions';
 import FormParagraph from '../../components/form/paragraph';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
@@ -31,9 +31,9 @@ const validationSchema = yup.object().shape({
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const isRequest = useSelector((state) => state.form.request);
-  const authorization = useSelector((state) => state.form.user.authorization);
+  const dispatch = useAppDispatch();
+  const isRequest = useAppSelector((state) => state.form.request);
+  const authorization = useAppSelector((state) => state.form.user.authorization);
 
   const formik = useFormik({
     initialValues: {
@@ -63,7 +63,7 @@ const LoginPage = (): JSX.Element => {
     }
 
     if (authorization) {
-      navigate('/home');
+      navigate('/');
     }
   }, [isRequest]);
 

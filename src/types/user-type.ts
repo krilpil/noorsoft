@@ -10,7 +10,7 @@ export type UserResetPasswordData = Pick<UserFormData, 'password'> & Record<'cod
 export type UserData = {
   authorization?: boolean;
   error?: string | null;
-  email?: string | null;
-  displayName?: string | null;
-  phoneNumber?: string | null;
+  email: string | null;
+  token: string | null;
+  id: string | null;
 };
