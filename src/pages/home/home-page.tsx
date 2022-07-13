@@ -23,9 +23,9 @@ const HomePage = () => {
           <Title level={3}>Noorsoft</Title>
           <InputSider placeholder={'Search here...'} prefix={<IconSearchInput />} />
           <Helpers content={'between'}>
-            <IconCheck active={true} title={'Active dialogs'} />
-            <IconSave active={false} title={'Saved dialogs'} />
-            <IconClose active={false} title={'Closed dialogues'} />
+            <IconCheck active title={'Active dialogs'} />
+            <IconSave title={'Saved dialogs'} />
+            <IconClose title={'Closed dialogues'} />
           </Helpers>
         </SideHeader>
         <Message

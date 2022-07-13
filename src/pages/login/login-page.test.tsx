@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { mount } from 'enzyme';
 import LoginPage from './login-page';
-import rootReducer from '../../redux/reducers';
+import { rootReducer } from '../../redux/reducers';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import 'jsdom-global/register';

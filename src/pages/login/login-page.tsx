@@ -59,7 +59,6 @@ const LoginPage = (): JSX.Element => {
   useEffect(() => {
     if (!authorization && !isRequest) {
       formik.setFieldError('authorization', 'Invalid email or password.');
-      console.log(formik.errors);
     }
 
     if (authorization) {

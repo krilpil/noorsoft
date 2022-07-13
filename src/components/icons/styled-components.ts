@@ -65,7 +65,7 @@ export const IconGoogle = styled(FontAwesomeIcon).attrs({
 
 /*ICONS DIALOGS */
 
-const IconDialogs = css<{ active: boolean }>`
+const IconDialogs = css<{ active?: boolean }>`
   width: 1.4rem;
   height: 1.4rem;
   opacity: ${(props) => (props.active ? '100%' : '50%')};
