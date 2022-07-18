@@ -5,19 +5,17 @@ import { getAuth, confirmPasswordReset } from 'firebase/auth';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const UserResetPassword = async ({ password, code }: UserResetPasswordData) => {
+export const UserResetPassword = async ({
+  password,
+  code,
+}: UserResetPasswordData): Promise<null | string> => {
   const auth = getAuth(initialization);
 
   return confirmPasswordReset(auth, code, password)
     .then(() => {
-      return {
-        error: null,
-      };
+      return null;
     })
     .catch((error) => {
-      console.log(error.message);
-      return {
-        error: error.message,
-      };
+      return error.message;
     });
 };

@@ -11,13 +11,14 @@ import {
   FORM_FETCH_RESET_REQUEST,
   FORM_FETCH_RESET_SUCCESS,
   FORM_FETCH_RESET_FAILURE,
+  AUTH_RESET_TOKEN,
 } from '../constants/form-constants';
 
 const initialState = {
-  request: false,
-  error: false,
+  isLoading: false,
+  isError: false,
   user: {
-    authorization: false,
+    isAuth: false,
     email: null,
     token: null,
     id: null,
@@ -31,77 +32,82 @@ interface FormAction {
 
 const formReducer = (state = initialState, action: FormAction) => {
   switch (action.type) {
-    //User login
+    // User login
     case FORM_FETCH_LOGIN_REQUEST:
       return {
         ...state,
-        request: true,
+        isLoading: true,
       };
     case FORM_FETCH_LOGIN_SUCCESS:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
     case FORM_FETCH_LOGIN_FAILURE:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
-    //User signup
+    // User signup
     case FORM_FETCH_SIGNUP_REQUEST:
       return {
         ...state,
-        request: true,
+        isLoading: true,
       };
     case FORM_FETCH_SIGNUP_SUCCESS:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
     case FORM_FETCH_SIGNUP_FAILURE:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
-    //User forgot password
+    // User forgot password
     case FORM_FETCH_FORGOT_REQUEST:
       return {
         ...state,
-        request: true,
+        isLoading: true,
       };
     case FORM_FETCH_FORGOT_SUCCESS:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
     case FORM_FETCH_FORGOT_FAILURE:
       return {
         ...state,
-        request: false,
+        isLoading: false,
         user: action.payload,
       };
-    //User reset password
+    // User reset password
     case FORM_FETCH_RESET_REQUEST:
       return {
         ...state,
-        request: true,
+        isLoading: true,
       };
     case FORM_FETCH_RESET_SUCCESS:
       return {
         ...state,
-        request: false,
-        error: false,
+        isLoading: false,
+        isError: false,
       };
     case FORM_FETCH_RESET_FAILURE:
       return {
         ...state,
-        request: false,
-        error: true,
+        isLoading: false,
+        isError: true,
+      };
+    case AUTH_RESET_TOKEN:
+      return {
+        ...state,
+        user: { ...state.user, isAuth: false },
       };
     default:
       return state;

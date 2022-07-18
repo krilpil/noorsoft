@@ -49,8 +49,8 @@ const validationSchema = yup.object().shape({
 const SignupPage = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.form.request);
-  const authorization = useAppSelector((state) => state.form.user.authorization);
+  const isRequest = useAppSelector((state) => state.root.isLoading);
+  const authorization = useAppSelector((state) => state.root.user.isAuth);
 
   const formik = useFormik({
     initialValues: {

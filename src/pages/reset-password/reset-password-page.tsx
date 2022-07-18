@@ -28,8 +28,8 @@ const ResetPasswordPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const isRequest = useAppSelector((state) => state.form.request);
-  const error = useAppSelector((state) => state.form.error);
+  const isRequest = useAppSelector((state) => state.root.isLoading);
+  const isError = useAppSelector((state) => state.root.isError);
 
   const formik = useFormik({
     initialValues: {
@@ -49,7 +49,7 @@ const ResetPasswordPage = () => {
   });
 
   useEffect(() => {
-    if (!error && !isRequest && formik.dirty) {
+    if (!isError && !isRequest && formik.dirty) {
       message.success('Successful password change');
       navigate('/login');
     }

@@ -6,26 +6,31 @@ import { firebaseConfig } from '../config/firebase';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const userLogin = async (userLoginData: UserFormData): Promise<UserData> => {
+export const userLogin = async ({ email, password }: UserFormData): Promise<UserData> => {
   const auth = getAuth(initialization);
 
-  return signInWithEmailAndPassword(auth, userLoginData.email, userLoginData.password)
+  const defaultLogin = {
+    isAuth: false,
+    email: null,
+    token: null,
+    id: null,
+  };
+
+  return signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const { user } = userCredential;
 
-      return {
-        authorization: true,
-        email: user.email,
-        token: user.refreshToken,
-        id: user.uid,
-      };
+      return user
+        .getIdToken(false)
+        .then((idToken) => {
+          return {
+            isAuth: true,
+            email: user.email,
+            token: idToken,
+            id: user.uid,
+          };
+        })
+        .catch(() => defaultLogin);
     })
-    .catch(() => {
-      return {
-        authorization: false,
-        email: null,
-        token: null,
-        id: null,
-      };
-    });
+    .catch(() => defaultLogin);
 };

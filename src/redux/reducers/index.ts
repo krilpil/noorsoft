@@ -8,5 +8,5 @@ export const persistConfig = {
 };
 
 export const rootReducer = persistCombineReducers(persistConfig, {
-  form: formReducer,
+  root: formReducer,
 });

@@ -42,7 +42,7 @@ export const SideHeader = styled.div`
   grid-gap: 20px;
 `;
 
-/*DIALOG BLOCK */
+/* DIALOG BLOCK */
 
 export const DialogBlock = styled(Layout)`
   background-color: #f6f9fa;

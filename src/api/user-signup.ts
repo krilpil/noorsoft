@@ -6,28 +6,27 @@ import { firebaseConfig } from '../config/firebase';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const userSignup = async (userSignupData: UserFormData): Promise<UserData> => {
+export const userSignup = async ({ email, password }: UserFormData): Promise<UserData> => {
   const auth = getAuth(initialization);
 
-  return createUserWithEmailAndPassword(auth, userSignupData.email, userSignupData.password)
-    .then((userCredential) => {
-      const { user } = userCredential;
+  const defaultSignup = {
+    isAuth: false,
+    email: null,
+    token: null,
+    id: null,
+  };
 
+  return createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
       return {
-        authorization: true,
-        email: user.email,
-        token: null,
-        id: null,
+        ...defaultSignup,
+        isAuth: true,
       };
     })
     .catch((error) => {
       console.log(error.message);
-
       return {
-        authorization: false,
-        email: null,
-        token: null,
-        id: null,
+        ...defaultSignup,
       };
     });
 };

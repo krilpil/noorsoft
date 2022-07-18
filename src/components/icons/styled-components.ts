@@ -19,7 +19,7 @@ const formIcon = css`
   width: 0.7rem;
 `;
 
-/*ICONS FORM */
+/* ICONS FORM */
 
 export const IconLock = styled(FontAwesomeIcon).attrs({
   icon: faLock,
@@ -45,7 +45,7 @@ export const IconUserAstronaut = styled(FontAwesomeIcon).attrs({
   ${formIcon}
 `;
 
-/*ICONS BRANDS */
+/* ICONS BRANDS */
 
 const iconHelper = css`
   color: #ffffff;
@@ -63,7 +63,7 @@ export const IconGoogle = styled(FontAwesomeIcon).attrs({
   ${iconHelper}
 `;
 
-/*ICONS DIALOGS */
+/* ICONS DIALOGS */
 
 const IconDialogs = css<{ active?: boolean }>`
   width: 1.4rem;

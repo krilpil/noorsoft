@@ -10,7 +10,7 @@ import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 Enzyme.configure({ adapter: new Adapter() });
 
 const initialState: any = {
-  form: {
+  root: {
     request: false,
     user: {},
   },

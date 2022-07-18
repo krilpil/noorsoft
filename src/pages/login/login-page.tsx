@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { formFetchLoginRequest } from '../../redux/actions/form-actions';
 import FormParagraph from '../../components/form/paragraph';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
+import { Navigate, Link } from 'react-router-dom';
 import {
   Form,
   Title,
@@ -22,7 +23,7 @@ import {
   IconVK,
   IconGoogle,
 } from '../../components/icons/styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/use-auth';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -30,10 +31,9 @@ const validationSchema = yup.object().shape({
 });
 
 const LoginPage = (): JSX.Element => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.form.request);
-  const authorization = useAppSelector((state) => state.form.user.authorization);
+  const isRequest = useAppSelector((state) => state.root.isLoading);
+  const isAuth = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -57,16 +57,12 @@ const LoginPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!authorization && !isRequest) {
+    if (!isAuth && !isRequest) {
       formik.setFieldError('authorization', 'Invalid email or password.');
-    }
-
-    if (authorization) {
-      navigate('/');
     }
   }, [isRequest]);
 
-  return (
+  return !isAuth ? (
     <FormPageWrapper>
       <Form onSubmit={formik.handleSubmit}>
         <Title level={1}>Login</Title>
@@ -120,6 +116,8 @@ const LoginPage = (): JSX.Element => {
         </Helpers>
       </Form>
     </FormPageWrapper>
+  ) : (
+    <Navigate to={'/'} />
   );
 };
 

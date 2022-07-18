@@ -10,11 +10,11 @@ import { Helpers } from '../../components/form/styled-components';
 import Message from '../../components/dialog/dialog';
 import ChatInput from '../../components/chat/chat-input/chat-input';
 import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
-import { useAuth } from '../../hooks/use-auth';
 import { Navigate } from 'react-router-dom';
+import { useAuth } from '../../hooks/use-auth';
 
 const HomePage = () => {
-  const { isAuth } = useAuth();
+  const isAuth = useAuth();
 
   return isAuth ? (
     <Layout>

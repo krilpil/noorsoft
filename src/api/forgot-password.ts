@@ -5,18 +5,14 @@ import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const UserForgotPassword = async (UserForgotPasswordData: UserForgotPasswordData) => {
+export const UserForgotPassword = ({ email }: UserForgotPasswordData): Promise<null | string> => {
   const auth = getAuth(initialization);
 
-  return sendPasswordResetEmail(auth, UserForgotPasswordData.email)
+  return sendPasswordResetEmail(auth, email)
     .then(() => {
-      return {
-        error: null,
-      };
+      return null;
     })
     .catch((error) => {
-      return {
-        error: error.message,
-      };
+      return error.message;
     });
 };

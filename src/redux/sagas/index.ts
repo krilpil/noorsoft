@@ -34,7 +34,7 @@ export function* workerLoginFormRequest(action: { type: string; payload: UserFor
     password: action.payload.password,
   });
 
-  responseLogin.authorization
+  responseLogin.isAuth
     ? yield put(formFetchLoginSuccess(responseLogin))
     : yield put(formFetchLoginFailure(responseLogin));
 }
@@ -45,7 +45,7 @@ export function* workerSignupFormRequest(action: { type: string; payload: UserFo
     password: action.payload.password,
   });
 
-  responseSignup.authorization
+  responseSignup.isAuth
     ? yield put(formFetchSignupSuccess(responseSignup))
     : yield put(formFetchSignupFailure(responseSignup));
 }
@@ -58,9 +58,9 @@ export function* workerForgotPasswordFormRequest(action: {
     email: action.payload.email,
   });
 
-  console.log(responseForgotPassword.error);
+  console.log(responseForgotPassword);
 
-  responseForgotPassword.error === null
+  responseForgotPassword === null
     ? yield put(formFetchForgotSuccess(responseForgotPassword))
     : yield put(formFetchForgotFailure(responseForgotPassword));
 }
@@ -74,9 +74,9 @@ export function* workerResetPasswordFormRequest(action: {
     code: action.payload.code,
   });
 
-  console.log(responseResetPassword.error);
+  console.log(responseResetPassword);
 
-  responseResetPassword.error === null
+  responseResetPassword === null
     ? yield put(formFetchResetSuccess(responseResetPassword))
     : yield put(formFetchResetFailure(responseResetPassword));
 }

@@ -26,7 +26,7 @@ const ForgotPasswordPage = () => {
   const [isCountingTime, setIsCountingTime] = useState(false);
 
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.form.request);
+  const isRequest = useAppSelector((state) => state.root.isLoading);
 
   const formik = useFormik({
     initialValues: {

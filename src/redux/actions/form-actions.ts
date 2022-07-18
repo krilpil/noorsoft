@@ -11,10 +11,11 @@ import {
   FORM_FETCH_RESET_REQUEST,
   FORM_FETCH_RESET_SUCCESS,
   FORM_FETCH_RESET_FAILURE,
+  AUTH_RESET_TOKEN,
 } from '../constants/form-constants';
 import { UserFormData, UserData, UserForgotPasswordData } from '../../types/user-type';
 
-//User login
+// User login
 export const formFetchLoginRequest = (UserLoginData: UserFormData) => ({
   type: FORM_FETCH_LOGIN_REQUEST,
   payload: UserLoginData,
@@ -30,7 +31,7 @@ export const formFetchLoginFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-//User signup
+// User signup
 export const formFetchSignupRequest = (UserSignupData: UserFormData) => ({
   type: FORM_FETCH_SIGNUP_REQUEST,
   payload: UserSignupData,
@@ -46,7 +47,7 @@ export const formFetchSignupFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-//User forgot password
+// User forgot password
 export const formFetchForgotRequest = (UserForgotPasswordData: UserForgotPasswordData) => ({
   type: FORM_FETCH_FORGOT_REQUEST,
   payload: UserForgotPasswordData,
@@ -62,7 +63,7 @@ export const formFetchForgotFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-//User reset password
+// User reset password
 export const formFetchResetRequest = (UserResetPasswordData: {
   password: string;
   code: string | null;
@@ -79,4 +80,8 @@ export const formFetchResetSuccess = (userData: UserData) => ({
 export const formFetchResetFailure = (userData: UserData) => ({
   type: FORM_FETCH_RESET_FAILURE,
   payload: userData,
+});
+
+export const authResetToken = () => ({
+  type: AUTH_RESET_TOKEN,
 });
