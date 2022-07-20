@@ -23,7 +23,6 @@ import {
   IconVK,
   IconGoogle,
 } from '../../components/icons/styled-components';
-import { useAuth } from '../../hooks/use-auth';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -33,7 +32,7 @@ const validationSchema = yup.object().shape({
 const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const isRequest = useAppSelector((state) => state.root.isLoading);
-  const isAuth = useAuth();
+  const isAuth = useAppSelector((state) => state.root.user.isAuth);
 
   const formik = useFormik({
     initialValues: {

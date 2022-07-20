@@ -11,7 +11,9 @@ import {
   FORM_FETCH_RESET_REQUEST,
   FORM_FETCH_RESET_SUCCESS,
   FORM_FETCH_RESET_FAILURE,
-  AUTH_RESET_TOKEN,
+  CHECK_AUTH_REQUEST,
+  CHECK_AUTH_SUCCESS,
+  CHECK_AUTH_FAILURE,
 } from '../constants/form-constants';
 
 const initialState = {
@@ -104,10 +106,31 @@ const formReducer = (state = initialState, action: FormAction) => {
         isLoading: false,
         isError: true,
       };
-    case AUTH_RESET_TOKEN:
+    case CHECK_AUTH_REQUEST:
       return {
         ...state,
-        user: { ...state.user, isAuth: false },
+        isLoading: true,
+      };
+    case CHECK_AUTH_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        user: {
+          ...state.user,
+          isAuth: true,
+        },
+      };
+    case CHECK_AUTH_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        user: {
+          ...state.user,
+          isAuth: false,
+          email: null,
+          token: null,
+          id: null,
+        },
       };
     default:
       return state;

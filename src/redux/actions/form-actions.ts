@@ -11,7 +11,9 @@ import {
   FORM_FETCH_RESET_REQUEST,
   FORM_FETCH_RESET_SUCCESS,
   FORM_FETCH_RESET_FAILURE,
-  AUTH_RESET_TOKEN,
+  CHECK_AUTH_REQUEST,
+  CHECK_AUTH_SUCCESS,
+  CHECK_AUTH_FAILURE,
 } from '../constants/form-constants';
 import { UserFormData, UserData, UserForgotPasswordData } from '../../types/user-type';
 
@@ -82,6 +84,18 @@ export const formFetchResetFailure = (userData: UserData) => ({
   payload: userData,
 });
 
-export const authResetToken = () => ({
-  type: AUTH_RESET_TOKEN,
+// Check auth
+export const checkAuthRequest = (currentToken: string) => ({
+  type: CHECK_AUTH_REQUEST,
+  payload: currentToken
+});
+
+export const checkAuthSuccess = (isAuth: boolean) => ({
+  type: CHECK_AUTH_SUCCESS,
+  payload: isAuth,
+});
+
+export const checkAuthFailure = (isAuth: boolean) => ({
+  type: CHECK_AUTH_FAILURE,
+  payload: isAuth,
 });

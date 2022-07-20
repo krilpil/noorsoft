@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Layout, Sider, Title, SideHeader, DialogBlock, InputSider } from './styled-components';
 import {
   IconCheck,
@@ -11,10 +11,22 @@ import Message from '../../components/dialog/dialog';
 import ChatInput from '../../components/chat/chat-input/chat-input';
 import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../../hooks/use-auth';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { checkAuthRequest } from '../../redux/actions/form-actions';
 
 const HomePage = () => {
-  const isAuth = useAuth();
+  const dispatch = useAppDispatch();
+  const currentToken = useAppSelector((state) => state.root.user.token);
+  const isAuth = useAppSelector((state) => state.root.user.isAuth);
+  const isLoading = useAppSelector((state) => state.root.isLoading);
+
+  useEffect(() => {
+    dispatch(checkAuthRequest(currentToken));
+  }, []);
+
+  if (isLoading) {
+    return <p>Загрузка...</p>;
+  }
 
   return isAuth ? (
     <Layout>
