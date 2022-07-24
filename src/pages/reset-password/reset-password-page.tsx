@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
 import * as yup from 'yup';
 import { Button, Form, Input, Title } from '../../components/form/styled-components';
-import FormParagraph from '../../components/form/paragraph';
+import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { formFetchResetRequest } from '../../redux/actions/form-actions';

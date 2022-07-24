@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { message } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { formFetchLoginRequest } from '../../redux/actions/form-actions';
-import FormParagraph from '../../components/form/paragraph';
+import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
 import { Navigate, Link } from 'react-router-dom';
 import {

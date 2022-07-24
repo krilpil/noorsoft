@@ -87,7 +87,7 @@ export const formFetchResetFailure = (userData: UserData) => ({
 // Check auth
 export const checkAuthRequest = (currentToken: string) => ({
   type: CHECK_AUTH_REQUEST,
-  payload: currentToken
+  payload: currentToken,
 });
 
 export const checkAuthSuccess = (isAuth: boolean) => ({

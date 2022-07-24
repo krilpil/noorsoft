@@ -8,7 +8,7 @@ import {
   ButtonLink,
   Helpers,
 } from '../../components/form/styled-components';
-import FormParagraph from '../../components/form/paragraph';
+import FormParagraph from '../../components/form/paragraph/pharagraph';
 import {
   IconGoogle,
   IconLock,

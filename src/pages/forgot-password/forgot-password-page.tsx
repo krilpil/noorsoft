@@ -8,7 +8,7 @@ import {
   ButtonLink,
   Helpers,
 } from '../../components/form/styled-components';
-import FormParagraph from '../../components/form/paragraph';
+import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
