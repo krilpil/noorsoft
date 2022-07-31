@@ -20,8 +20,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { message } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
-import { formFetchSignupRequest } from '../../redux/actions/form-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { userSignup } from '../../redux/reducers/form-reducers';
 
 const notWorking = () => {
   message.info('Temporarily not working');
@@ -62,7 +62,7 @@ const SignupPage = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       dispatch(
-        formFetchSignupRequest({
+        userSignup({
           email: values.email,
           password: values.password,
         })
@@ -77,7 +77,7 @@ const SignupPage = () => {
     }
 
     if (authorization) {
-      navigate('/home');
+      navigate('/login');
     }
   }, [isRequest]);
 

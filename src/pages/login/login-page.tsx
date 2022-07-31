@@ -1,10 +1,8 @@
 import React, { useEffect } from 'react';
-
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { message } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { formFetchLoginRequest } from '../../redux/actions/form-actions';
 import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
 import { Navigate, Link } from 'react-router-dom';
@@ -23,6 +21,7 @@ import {
   IconVK,
   IconGoogle,
 } from '../../components/icons/styled-components';
+import { userLogin } from '../../redux/reducers/form-reducers';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -43,7 +42,7 @@ const LoginPage = (): JSX.Element => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       dispatch(
-        formFetchLoginRequest({
+        userLogin({
           email: values.email,
           password: values.password,
         })

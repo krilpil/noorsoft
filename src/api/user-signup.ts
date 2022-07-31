@@ -6,14 +6,14 @@ import { firebaseConfig } from '../config/firebase';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const userSignup = async ({ email, password }: UserFormData): Promise<UserData> => {
+export const UserSignupService = async ({ email, password }: UserFormData): Promise<UserData> => {
   const auth = getAuth(initialization);
 
   const defaultSignup = {
     isAuth: false,
-    email: null,
-    token: null,
-    id: null,
+    email: '',
+    token: '',
+    id: '',
   };
 
   return createUserWithEmailAndPassword(auth, email, password)

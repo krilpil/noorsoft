@@ -5,7 +5,9 @@ export const InputGroup = styled(AntInput.Group).attrs({
   compact: true,
 })``;
 
-export const ChatInputBlock = styled(AntLayout.Footer)``;
+export const ChatInputBlock = styled(AntLayout.Footer)`
+  padding: 19px 50px;
+`;
 
 export const ChatInputText = styled(AntInput.Search).attrs({
   bordered: false,
@@ -15,4 +17,6 @@ export const ChatInputText = styled(AntInput.Search).attrs({
   & > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
     border-radius: 15px;
   }
+
+  height: min-content;
 `;

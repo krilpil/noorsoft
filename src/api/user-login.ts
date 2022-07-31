@@ -6,14 +6,14 @@ import { firebaseConfig } from '../config/firebase';
 
 const initialization = initializeApp(firebaseConfig);
 
-export const userLogin = async ({ email, password }: UserFormData): Promise<UserData> => {
+export const UserLoginService = async ({ email, password }: UserFormData): Promise<UserData> => {
   const auth = getAuth(initialization);
 
   const defaultLogin = {
     isAuth: false,
-    email: null,
-    token: null,
-    id: null,
+    email: '',
+    token: '',
+    id: '',
   };
 
   return signInWithEmailAndPassword(auth, email, password)
@@ -25,7 +25,7 @@ export const userLogin = async ({ email, password }: UserFormData): Promise<User
         .then((idToken) => {
           return {
             isAuth: true,
-            email: user.email,
+            email: user.email || email,
             token: idToken,
             id: user.uid,
           };

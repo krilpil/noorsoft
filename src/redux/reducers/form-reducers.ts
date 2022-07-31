@@ -1,140 +1,112 @@
-import {
-  FORM_FETCH_LOGIN_FAILURE,
-  FORM_FETCH_LOGIN_REQUEST,
-  FORM_FETCH_LOGIN_SUCCESS,
-  FORM_FETCH_FORGOT_FAILURE,
-  FORM_FETCH_FORGOT_REQUEST,
-  FORM_FETCH_FORGOT_SUCCESS,
-  FORM_FETCH_SIGNUP_FAILURE,
-  FORM_FETCH_SIGNUP_REQUEST,
-  FORM_FETCH_SIGNUP_SUCCESS,
-  FORM_FETCH_RESET_REQUEST,
-  FORM_FETCH_RESET_SUCCESS,
-  FORM_FETCH_RESET_FAILURE,
-  CHECK_AUTH_REQUEST,
-  CHECK_AUTH_SUCCESS,
-  CHECK_AUTH_FAILURE,
-} from '../constants/form-constants';
+import { UserData, UserFormData } from '../../types/user-type';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-const initialState = {
+type UserState = {
+  isLoading: boolean;
+  error: string;
+  user: UserData;
+};
+
+const initialState: UserState = {
   isLoading: false,
-  isError: false,
+  error: '',
   user: {
     isAuth: false,
-    email: null,
-    token: null,
-    id: null,
+    email: '',
+    token: '',
+    id: '',
   },
 };
 
-interface FormAction {
-  type: string;
-  payload?: any;
-}
+const userSlice = createSlice({
+  name: 'user',
+  initialState,
+  reducers: {
+    // USER LOGIN
+    userLogin: (state, action: PayloadAction<UserFormData>) => {
+      state.isLoading = true;
+    },
+    userLoginSuccess: (state, action: PayloadAction<UserData>) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    userLoginFailure: (state, action: PayloadAction<UserData>) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    // CHECK USER AUTH
+    userCheckAuth: (state, action: PayloadAction<string>) => {
+      state.isLoading = true;
+    },
+    userCheckAuthSuccess: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = false;
+      state.user.isAuth = action.payload;
+    },
+    userCheckAuthFailure: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = false;
+      state.user.isAuth = action.payload;
+      state.user.token = '';
+      state.user.email = '';
+      state.user.id = '';
+    },
+    // USER SIGNUP
+    userSignup: (state, action: PayloadAction<UserFormData>) => {
+      state.isLoading = true;
+    },
+    userSignupSuccess: (state, action: PayloadAction<UserData>) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    userSignupFailure: (state, action: PayloadAction<UserData>) => {
+      state.isLoading = false;
+      state.user = action.payload;
+    },
+    // USER FORGOT PASSWORD
+    userForgotPassword: (state, action: PayloadAction<string>) => {
+      state.isLoading = true;
+    },
+    userForgotPasswordSuccess: (state) => {
+      state.isLoading = false;
+    },
+    userForgotPasswordFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // USER RESET PASSWORD
+    userResetPassword: (state, action: PayloadAction<{ password: string; code: string }>) => {
+      state.isLoading = true;
+    },
+    userResetPasswordSuccess: (state) => {
+      state.isLoading = false;
+      state.error = '';
+    },
+    userResetPasswordFailure: (state, action: PayloadAction<string>) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    // USER LOGOUT
+    userLogout: (state) => {
+      state.isLoading = true;
+    },
+  },
+});
 
-const formReducer = (state = initialState, action: FormAction) => {
-  switch (action.type) {
-    // User login
-    case FORM_FETCH_LOGIN_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case FORM_FETCH_LOGIN_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    case FORM_FETCH_LOGIN_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    // User signup
-    case FORM_FETCH_SIGNUP_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case FORM_FETCH_SIGNUP_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    case FORM_FETCH_SIGNUP_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    // User forgot password
-    case FORM_FETCH_FORGOT_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case FORM_FETCH_FORGOT_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    case FORM_FETCH_FORGOT_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        user: action.payload,
-      };
-    // User reset password
-    case FORM_FETCH_RESET_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case FORM_FETCH_RESET_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        isError: false,
-      };
-    case FORM_FETCH_RESET_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        isError: true,
-      };
-    case CHECK_AUTH_REQUEST:
-      return {
-        ...state,
-        isLoading: true,
-      };
-    case CHECK_AUTH_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        user: {
-          ...state.user,
-          isAuth: true,
-        },
-      };
-    case CHECK_AUTH_FAILURE:
-      return {
-        ...state,
-        isLoading: false,
-        user: {
-          ...state.user,
-          isAuth: false,
-          email: null,
-          token: null,
-          id: null,
-        },
-      };
-    default:
-      return state;
-  }
-};
-
-export default formReducer;
+export const {
+  userCheckAuth,
+  userCheckAuthSuccess,
+  userCheckAuthFailure,
+  userLogin,
+  userLoginSuccess,
+  userLoginFailure,
+  userSignup,
+  userSignupSuccess,
+  userSignupFailure,
+  userForgotPassword,
+  userForgotPasswordSuccess,
+  userForgotPasswordFailure,
+  userResetPassword,
+  userResetPasswordSuccess,
+  userResetPasswordFailure,
+  userLogout,
+} = userSlice.actions;
+export default userSlice.reducer;

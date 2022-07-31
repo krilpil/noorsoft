@@ -5,7 +5,7 @@ import ChatInput from '../../components/chat/chat-input/chat-input';
 import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { checkAuthRequest } from '../../redux/actions/form-actions';
+import { userCheckAuth } from '../../redux/reducers/form-reducers';
 
 const HomePage = () => {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ const HomePage = () => {
   const isLoading = useAppSelector((state) => state.root.isLoading);
 
   useEffect(() => {
-    dispatch(checkAuthRequest(currentToken));
+    dispatch(userCheckAuth(currentToken));
   }, []);
 
   if (isLoading) {

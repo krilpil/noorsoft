@@ -6,9 +6,9 @@ import { Button, Form, Input, Title } from '../../components/form/styled-compone
 import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { formFetchResetRequest } from '../../redux/actions/form-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
+import { userResetPassword } from '../../redux/reducers/form-reducers';
 
 const validationSchema = yup.object().shape({
   confirmationPassword: yup
@@ -28,8 +28,8 @@ const ResetPasswordPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const isRequest = useAppSelector((state) => state.root.isLoading);
-  const isError = useAppSelector((state) => state.root.isError);
+  const isLoading: boolean = useAppSelector((state) => state.root.isLoading);
+  const error: string = useAppSelector((state) => state.root.error);
 
   const formik = useFormik({
     initialValues: {
@@ -40,20 +40,20 @@ const ResetPasswordPage = () => {
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       dispatch(
-        formFetchResetRequest({
+        userResetPassword({
           password: values.confirmationPassword,
-          code: searchParams.get('oobCode'),
+          code: searchParams.get('oobCode') || '',
         })
       );
     },
   });
 
   useEffect(() => {
-    if (!isError && !isRequest && formik.dirty) {
+    if (error.length === 0 && !isLoading && formik.dirty) {
       message.success('Successful password change');
       navigate('/login');
     }
-  }, [isRequest]);
+  }, [isLoading]);
 
   return (
     <FormPageWrapper>
@@ -86,7 +86,7 @@ const ResetPasswordPage = () => {
           block
           id={'button'}
           htmlType={'submit'}
-          disabled={!formik.isValid || !formik.dirty || isRequest}
+          disabled={!formik.isValid || !formik.dirty || isLoading}
         >
           Update password
         </Button>

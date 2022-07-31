@@ -8,7 +8,7 @@ import {
   faCommentDots,
   faCommentSlash,
   faComments,
-  faPaperPlane,
+  faArrowRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faComments as faCommentsRegular } from '@fortawesome/free-regular-svg-icons';
@@ -103,9 +103,9 @@ export const IconClose = styled(FontAwesomeIcon).attrs({
   ${IconDialogs}
 `;
 
-export const IconInputChatButton = styled(FontAwesomeIcon).attrs({
-  icon: faPaperPlane,
+export const ArrowFromBracket = styled(FontAwesomeIcon).attrs({
+  icon: faArrowRightFromBracket,
   size: '2x',
 })`
-  color: #b2b2b2;
+  ${IconDialogs}
 `;

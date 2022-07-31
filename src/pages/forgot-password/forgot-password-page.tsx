@@ -13,9 +13,9 @@ import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { Link } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import { formFetchForgotRequest } from '../../redux/actions/form-actions';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
+import { userForgotPassword } from '../../redux/reducers/form-reducers';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -35,11 +35,7 @@ const ForgotPasswordPage = () => {
     validateOnBlur: true,
     validationSchema: validationSchema,
     onSubmit: async (values) => {
-      dispatch(
-        formFetchForgotRequest({
-          email: values.email,
-        })
-      );
+      dispatch(userForgotPassword(values.email));
       message.info('The recovery code has been sent to the mail');
       setIsCountingTime(true);
     },

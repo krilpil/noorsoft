@@ -6,16 +6,20 @@ import { configureStore } from '@reduxjs/toolkit';
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = configureStore({
-  reducer: persistReducer(persistConfig, rootReducer),
-  middleware: [sagaMiddleware],
-  devTools: true,
-});
+const setupStore = () => {
+  return configureStore({
+    reducer: persistReducer(persistConfig, rootReducer),
+    middleware: [sagaMiddleware],
+    devTools: true,
+  });
+};
+
+export const store = setupStore();
 
 sagaMiddleware.run(rootSaga);
 
 export const persistor = persistStore(store);
 
-export default store;
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore['dispatch'];

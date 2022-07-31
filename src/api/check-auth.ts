@@ -2,7 +2,11 @@ import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '../config/firebase';
 import { getAuth } from 'firebase/auth';
 
-export const CheckAuth = async ({ currentToken }: { currentToken: string }): Promise<boolean> => {
+export const CheckAuthService = async ({
+  currentToken,
+}: {
+  currentToken: string;
+}): Promise<boolean> => {
   const initialization = initializeApp(firebaseConfig);
   const auth = getAuth(initialization);
 
