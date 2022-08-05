@@ -13,6 +13,7 @@ const App: FC = (): JSX.Element => {
     <Fragment>
       <GlobalStyles />
       <Routes>
+        {/* TODO: Create static links in a separate file */}
         <Route index element={<HomePage />} />
         <Route path={'/signup'} element={<SignupPage />} />
         <Route path={'/login'} element={<LoginPage />} />

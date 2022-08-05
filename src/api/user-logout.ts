@@ -1,12 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../config/firebase';
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { firebaseAuth } from '../config/firebase';
 
 export const UserLogoutService = (): Promise<boolean> => {
-  const initialization = initializeApp(firebaseConfig);
-  const auth = getAuth(initialization);
-
-  return signOut(auth)
+  return signOut(firebaseAuth)
     .then(() => {
       return true;
     })

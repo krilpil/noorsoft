@@ -1,14 +1,8 @@
 import { UserFormData, UserData } from '../types/user-type';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../config/firebase';
-
-const initialization = initializeApp(firebaseConfig);
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { firebaseAuth } from '../config/firebase';
 
 export const UserLoginService = async ({ email, password }: UserFormData): Promise<UserData> => {
-  const auth = getAuth(initialization);
-
   const defaultLogin = {
     isAuth: false,
     email: '',
@@ -16,7 +10,7 @@ export const UserLoginService = async ({ email, password }: UserFormData): Promi
     id: '',
   };
 
-  return signInWithEmailAndPassword(auth, email, password)
+  return signInWithEmailAndPassword(firebaseAuth, email, password)
     .then((userCredential) => {
       const { user } = userCredential;
 

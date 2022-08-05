@@ -1,13 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../config/firebase';
-import { getAuth, confirmPasswordReset } from 'firebase/auth';
-
-const initialization = initializeApp(firebaseConfig);
+import { confirmPasswordReset } from 'firebase/auth';
+import { firebaseAuth } from '../config/firebase';
 
 export const UserResetPasswordService = async (password: string, code: string): Promise<string> => {
-  const auth = getAuth(initialization);
-
-  return confirmPasswordReset(auth, code, password)
+  return confirmPasswordReset(firebaseAuth, code, password)
     .then(() => {
       return '';
     })

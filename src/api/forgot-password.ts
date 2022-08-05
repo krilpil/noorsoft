@@ -1,13 +1,8 @@
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../config/firebase';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
-
-const initialization = initializeApp(firebaseConfig);
+import { firebaseAuth } from '../config/firebase';
+import { sendPasswordResetEmail } from 'firebase/auth';
 
 export const UserForgotPasswordService = (email: string): Promise<string> => {
-  const auth = getAuth(initialization);
-
-  return sendPasswordResetEmail(auth, email)
+  return sendPasswordResetEmail(firebaseAuth, email)
     .then(() => {
       return '';
     })
