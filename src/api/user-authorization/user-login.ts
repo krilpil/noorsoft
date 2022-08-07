@@ -1,13 +1,13 @@
-import { UserFormData, UserData } from '../types/user-type';
+import { UserFormData, UserData } from '../../types/user-type';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { firebaseAuth } from '../config/firebase';
+import { firebaseAuth } from '../../config/firebase';
 
 export const UserLoginService = async ({ email, password }: UserFormData): Promise<UserData> => {
-  const defaultLogin = {
+  const defaultLogin: UserData = {
     isAuth: false,
     email: '',
     token: '',
-    id: '',
+    uid: '',
   };
 
   return signInWithEmailAndPassword(firebaseAuth, email, password)
@@ -21,7 +21,7 @@ export const UserLoginService = async ({ email, password }: UserFormData): Promi
             isAuth: true,
             email: user.email || email,
             token: idToken,
-            id: user.uid,
+            uid: user.uid,
           };
         })
         .catch(() => defaultLogin);

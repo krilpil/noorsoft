@@ -4,14 +4,14 @@ import { Layout as AntLayout, Typography } from 'antd';
 export const Dialog = styled(AntLayout.Content)`
   color: #3596fe;
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   //justify-content: flex-end;
-  overflow: scroll;
   grid-gap: 5px;
   padding: 30px;
+  overflow-y: scroll;
 `;
 
-export const Message = styled(Typography.Paragraph)`
+export const Text = styled(Typography.Paragraph)`
   &.ant-typography {
     margin-bottom: 0;
   }

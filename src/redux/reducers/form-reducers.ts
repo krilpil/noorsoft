@@ -14,7 +14,7 @@ const initialState: UserState = {
     isAuth: false,
     email: '',
     token: '',
-    id: '',
+    uid: '',
   },
 };
 
@@ -47,7 +47,7 @@ const userSlice = createSlice({
       state.user.isAuth = action.payload;
       state.user.token = '';
       state.user.email = '';
-      state.user.id = '';
+      state.user.uid = '';
     },
     // USER SIGNUP
     userSignup: (state, action: PayloadAction<UserFormData>) => {

@@ -1,22 +1,26 @@
 import styled from 'styled-components';
-import { Input as AntInput, Layout as AntLayout } from 'antd';
+import { Input as AntInput, Layout as AntLayout, Button as AntButton } from 'antd';
 
-export const InputGroup = styled(AntInput.Group).attrs({
-  compact: true,
-})``;
+export const InputGroup = styled.form`
+  display: flex;
+`;
 
 export const ChatInputBlock = styled(AntLayout.Footer)`
   padding: 19px 50px;
 `;
 
-export const ChatInputText = styled(AntInput.Search).attrs({
+export const Input = styled(AntInput).attrs({
   bordered: false,
-  placeholder: 'Write a message...',
-  enterButton: 'Send',
+  autoComplete: 'off',
 })`
-  & > .ant-input-group > .ant-input-group-addon:last-child .ant-input-search-button {
-    border-radius: 15px;
-  }
-
+  width: 100%;
   height: min-content;
+`;
+
+export const Button = styled(AntButton)`
+  width: max-content;
+  border-radius: 15px;
+  border: none;
+  background-color: #3596fe;
+  color: #ffffff;
 `;

@@ -1,4 +1,4 @@
-import { firebaseAuth } from '../config/firebase';
+import { firebaseAuth } from '../../config/firebase';
 import { sendPasswordResetEmail } from 'firebase/auth';
 
 export const UserForgotPasswordService = (email: string): Promise<string> => {

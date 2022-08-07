@@ -19,12 +19,12 @@ import {
   userSignupSuccess,
 } from '../reducers/form-reducers';
 import { UserData, UserFormData } from '../../types/user-type';
-import { UserLoginService } from '../../api/user-login';
-import { UserSignupService } from '../../api/user-signup';
-import { UserForgotPasswordService } from '../../api/forgot-password';
-import { UserResetPasswordService } from '../../api/reset-password';
-import { CheckAuthService } from '../../api/check-auth';
-import { UserLogoutService } from '../../api/user-logout';
+import { UserLoginService } from '../../api/user-authorization/user-login';
+import { UserSignupService } from '../../api/user-authorization/user-signup';
+import { UserForgotPasswordService } from '../../api/user-authorization/user-forgot-password';
+import { UserResetPasswordService } from '../../api/user-authorization/user-reset-password';
+import { CheckAuthService } from '../../api/user-authorization/check-auth';
+import { UserLogoutService } from '../../api/user-authorization/user-logout';
 
 // LOGIN FORM
 export function* watchLoginForm() {

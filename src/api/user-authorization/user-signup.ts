@@ -1,13 +1,13 @@
-import { UserData, UserFormData } from '../types/user-type';
+import { UserData, UserFormData } from '../../types/user-type';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { firebaseAuth } from '../config/firebase';
+import { firebaseAuth } from '../../config/firebase';
 
 export const UserSignupService = async ({ email, password }: UserFormData): Promise<UserData> => {
-  const defaultSignup = {
+  const defaultSignup: UserData = {
     isAuth: false,
     email: '',
     token: '',
-    id: '',
+    uid: '',
   };
 
   return createUserWithEmailAndPassword(firebaseAuth, email, password)

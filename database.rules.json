@@ -1,6 +1,18 @@
 {
     "rules": {
-        ".read": true,
-        ".write": true
+        "users": {
+            "$uid": {
+                ".read": "$uid === auth.uid",
+                ".write": "$uid === auth.uid",
+                "status": { ".validate": true },
+                "operatorId": { ".validate": true },
+                "messages": {
+                    "writtenBy": { ".validate": true },
+                    "content": { ".validate": true },
+                    "timestamp": { ".validate": true }
+                },
+                "$other": { ".validate": false }
+            }
+        }
     }
 }

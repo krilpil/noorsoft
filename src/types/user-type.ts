@@ -7,5 +7,5 @@ export type UserData = {
   isAuth: boolean;
   email: string;
   token: string;
-  id: string;
+  uid: string;
 };
