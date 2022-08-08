@@ -5,7 +5,7 @@ import ChatInput from '../../components/chat/chat-input/chat-input';
 import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
 import { Navigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { userCheckAuth } from '../../redux/reducers/form-reducers';
+import { userCheckAuth } from '../../redux/slices/user-slices';
 import { useUserGetMessage } from '../../api/user-dialogs/user-get-message';
 
 const HomePage = () => {

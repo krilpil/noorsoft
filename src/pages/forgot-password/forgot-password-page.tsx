@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
-import { userForgotPassword } from '../../redux/reducers/form-reducers';
+import { userForgotPassword } from '../../redux/slices/user-slices';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),

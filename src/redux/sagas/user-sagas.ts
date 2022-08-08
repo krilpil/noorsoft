@@ -17,7 +17,7 @@ import {
   userSignup,
   userSignupFailure,
   userSignupSuccess,
-} from '../reducers/form-reducers';
+} from '../slices/user-slices';
 import { UserData, UserFormData } from '../../types/user-type';
 import { UserLoginService } from '../../api/user-authorization/user-login';
 import { UserSignupService } from '../../api/user-authorization/user-signup';
@@ -48,14 +48,20 @@ export function* watchSignupForm() {
 }
 
 export function* workerSignupForm(action: { type: string; payload: UserFormData }): unknown {
-  const responseSignup: UserData = yield call(UserSignupService, {
+  const responseSignup: string = yield call(UserSignupService, {
     email: action.payload.email,
     password: action.payload.password,
   });
 
-  responseSignup.isAuth
-    ? yield put(userSignupSuccess(responseSignup))
-    : yield put(userSignupFailure(responseSignup));
+  if (responseSignup.length === 0) {
+    yield put(userSignupSuccess(responseSignup));
+    yield workerLoginForm({
+      type: userLogin.type,
+      payload: action.payload,
+    });
+  } else {
+    yield put(userSignupFailure(responseSignup));
+  }
 }
 
 // FORGOT PASSWORD
@@ -88,8 +94,6 @@ export function* workerResetPasswordForm(action: {
     action.payload.password,
     action.payload.code
   );
-
-  console.log(responseResetPassword);
 
   responseResetPassword === null
     ? yield put(userResetPasswordSuccess())

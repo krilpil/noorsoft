@@ -16,12 +16,12 @@ import {
   IconVK,
 } from '../../components/icons/styled-components';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { message } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { userSignup } from '../../redux/reducers/form-reducers';
+import { userSignup } from '../../redux/slices/user-slices';
 
 const notWorking = () => {
   message.info('Temporarily not working');
@@ -47,10 +47,10 @@ const validationSchema = yup.object().shape({
 });
 
 const SignupPage = () => {
-  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isRequest = useAppSelector((state) => state.root.isLoading);
-  const authorization = useAppSelector((state) => state.root.user.isAuth);
+  const isAuth = useAppSelector((state) => state.root.user.isAuth);
+  const error = useAppSelector((state) => state.root.error);
 
   const formik = useFormik({
     initialValues: {
@@ -71,17 +71,12 @@ const SignupPage = () => {
   });
 
   useEffect(() => {
-    if (!authorization && !isRequest) {
-      formik.setFieldError('signup"', 'This email address is already registered!');
-      console.log(formik.errors);
+    if (error) {
+      formik.setFieldError('signup', 'This email address is already registered!');
     }
+  }, [error]);
 
-    if (authorization) {
-      navigate('/login');
-    }
-  }, [isRequest]);
-
-  return (
+  return !isAuth ? (
     <FormPageWrapper>
       <Form onSubmit={formik.handleSubmit}>
         <Title level={1}>Signup</Title>
@@ -149,6 +144,8 @@ const SignupPage = () => {
         </Helpers>
       </Form>
     </FormPageWrapper>
+  ) : (
+    <Navigate to={'/login'} />
   );
 };
 

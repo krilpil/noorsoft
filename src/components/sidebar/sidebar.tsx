@@ -18,7 +18,7 @@ import {
 import { Helpers } from '../form/styled-components';
 import Message from '../message/message';
 import { useAppDispatch } from '../../hooks/redux-hooks';
-import { userLogout } from '../../redux/reducers/form-reducers';
+import { userLogout } from '../../redux/slices/user-slices';
 
 const Sidebar = () => {
   const dispatch = useAppDispatch();

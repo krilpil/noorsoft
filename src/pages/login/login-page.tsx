@@ -21,7 +21,7 @@ import {
   IconVK,
   IconGoogle,
 } from '../../components/icons/styled-components';
-import { userLogin } from '../../redux/reducers/form-reducers';
+import { userLogin } from '../../redux/slices/user-slices';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),

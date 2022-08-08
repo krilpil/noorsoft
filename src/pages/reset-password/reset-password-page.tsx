@@ -8,7 +8,7 @@ import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
-import { userResetPassword } from '../../redux/reducers/form-reducers';
+import { userResetPassword } from '../../redux/slices/user-slices';
 
 const validationSchema = yup.object().shape({
   confirmationPassword: yup

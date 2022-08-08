@@ -53,13 +53,13 @@ const userSlice = createSlice({
     userSignup: (state, action: PayloadAction<UserFormData>) => {
       state.isLoading = true;
     },
-    userSignupSuccess: (state, action: PayloadAction<UserData>) => {
+    userSignupSuccess: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.error = action.payload;
     },
-    userSignupFailure: (state, action: PayloadAction<UserData>) => {
+    userSignupFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
-      state.user = action.payload;
+      state.error = action.payload;
     },
     // USER FORGOT PASSWORD
     userForgotPassword: (state, action: PayloadAction<string>) => {

@@ -1,5 +1,5 @@
 import { persistCombineReducers } from 'redux-persist';
-import formReducer from './form-reducers';
+import userSlices from './user-slices';
 import storage from 'redux-persist/lib/storage';
 
 export const persistConfig = {
@@ -8,5 +8,5 @@ export const persistConfig = {
 };
 
 export const rootReducer = persistCombineReducers(persistConfig, {
-  root: formReducer,
+  root: userSlices,
 });
