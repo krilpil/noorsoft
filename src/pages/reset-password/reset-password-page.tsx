@@ -9,6 +9,7 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
 import { userResetPassword } from '../../redux/slices/user-slices';
+import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
   confirmationPassword: yup
@@ -51,9 +52,10 @@ const ResetPasswordPage = () => {
   useEffect(() => {
     if (error.length === 0 && !isLoading && formik.dirty) {
       message.success('Successful password change');
-      navigate('/login');
+      // TODO: Check for work in the state and remove
+      navigate(RouterLinks.LOGIN);
     }
-  }, [isLoading]);
+  }, [isLoading, error]);
 
   return (
     <FormPageWrapper>
@@ -95,4 +97,4 @@ const ResetPasswordPage = () => {
   );
 };
 
-export default ResetPasswordPage;
+export default React.memo(ResetPasswordPage);

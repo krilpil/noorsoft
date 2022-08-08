@@ -5,7 +5,7 @@ import { message } from 'antd';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
-import { Navigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   Form,
   Title,
@@ -22,6 +22,7 @@ import {
   IconGoogle,
 } from '../../components/icons/styled-components';
 import { userLogin } from '../../redux/slices/user-slices';
+import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -58,9 +59,9 @@ const LoginPage = (): JSX.Element => {
     if (!isAuth && !isRequest) {
       formik.setFieldError('authorization', 'Invalid email or password.');
     }
-  }, [isRequest]);
+  }, [isRequest, isAuth]);
 
-  return !isAuth ? (
+  return (
     <FormPageWrapper>
       <Form onSubmit={formik.handleSubmit}>
         <Title level={1}>Login</Title>
@@ -91,10 +92,10 @@ const LoginPage = (): JSX.Element => {
           prefix={<IconLock />}
         />
         <Helpers content={'between'}>
-          <Link to="/signup">
+          <Link to={RouterLinks.SIGNUP}>
             <ButtonLink htmlType="button">Signup</ButtonLink>
           </Link>
-          <Link to="/forgot-password">
+          <Link to={RouterLinks.FORGOT_PASSWORD}>
             <ButtonLink htmlType="button">Forgot your password?</ButtonLink>
           </Link>
         </Helpers>
@@ -114,8 +115,6 @@ const LoginPage = (): JSX.Element => {
         </Helpers>
       </Form>
     </FormPageWrapper>
-  ) : (
-    <Navigate to={'/'} />
   );
 };
 

@@ -16,12 +16,13 @@ import {
   IconVK,
 } from '../../components/icons/styled-components';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { message } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { userSignup } from '../../redux/slices/user-slices';
+import { RouterLinks } from '../../router/router';
 
 const notWorking = () => {
   message.info('Temporarily not working');
@@ -49,7 +50,6 @@ const validationSchema = yup.object().shape({
 const SignupPage = () => {
   const dispatch = useAppDispatch();
   const isRequest = useAppSelector((state) => state.root.isLoading);
-  const isAuth = useAppSelector((state) => state.root.user.isAuth);
   const error = useAppSelector((state) => state.root.error);
 
   const formik = useFormik({
@@ -74,9 +74,9 @@ const SignupPage = () => {
     if (error) {
       formik.setFieldError('signup', 'This email address is already registered!');
     }
-  }, [error]);
+  }, [error, formik]);
 
-  return !isAuth ? (
+  return (
     <FormPageWrapper>
       <Form onSubmit={formik.handleSubmit}>
         <Title level={1}>Signup</Title>
@@ -121,10 +121,10 @@ const SignupPage = () => {
           prefix={<IconLock />}
         />
         <Helpers content={'between'}>
-          <Link to="/login">
+          <Link to={RouterLinks.LOGIN}>
             <ButtonLink htmlType="button">Login</ButtonLink>
           </Link>
-          <Link to="/forgot-password">
+          <Link to={RouterLinks.FORGOT_PASSWORD}>
             <ButtonLink htmlType="button">Forgot your password?</ButtonLink>
           </Link>
         </Helpers>
@@ -144,9 +144,7 @@ const SignupPage = () => {
         </Helpers>
       </Form>
     </FormPageWrapper>
-  ) : (
-    <Navigate to={'/login'} />
   );
 };
 
-export default SignupPage;
+export default React.memo(SignupPage);

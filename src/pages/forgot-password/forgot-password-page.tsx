@@ -16,6 +16,7 @@ import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
 import { userForgotPassword } from '../../redux/slices/user-slices';
+import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
   email: yup.string().email('Enter a valid email!').required('Email is required!'),
@@ -41,6 +42,7 @@ const ForgotPasswordPage = () => {
     },
   });
 
+  // TODO: Move to a separate helper
   useEffect(() => {
     const intervalReturnSend = setInterval(() => {
       isCountingTime &&
@@ -72,10 +74,10 @@ const ForgotPasswordPage = () => {
           prefix={<IconUserAstronaut />}
         />
         <Helpers content={'between'}>
-          <Link to="/login">
+          <Link to={RouterLinks.LOGIN}>
             <ButtonLink htmlType="button">Login</ButtonLink>
           </Link>
-          <Link to="/signup">
+          <Link to={RouterLinks.SIGNUP}>
             <ButtonLink htmlType="button">Signup</ButtonLink>
           </Link>
         </Helpers>
@@ -93,4 +95,4 @@ const ForgotPasswordPage = () => {
   );
 };
 
-export default ForgotPasswordPage;
+export default React.memo(ForgotPasswordPage);
