@@ -1,15 +1,16 @@
-import { UserDialogType, UserMessageType } from '../types/user-message-type';
+import { UserMessageType } from '../types/user-message-type';
+import { useEffect, useState } from 'react';
+import { useAppSelector } from './redux-hooks';
 
-export const userFindDialog = (
-  dialogs: UserDialogType[],
-  uid: string | null
-): UserMessageType[] => {
-  let dialogMessages: UserMessageType[] = [];
-
-  dialogs.forEach((dialog) => {
-    if (dialog.uid === uid) {
-      dialogMessages = dialog.messages;
-    }
-  });
+export const useFindDialog = (openDialogUid: string): UserMessageType[] => {
+  const dialogs = useAppSelector((state) => state.userDialogs.dialogs);
+  const [dialogMessages, setDialogMessages] = useState<UserMessageType[]>([]);
+  useEffect(() => {
+    dialogs.forEach((dialog) => {
+      if (dialog.uid === openDialogUid) {
+        setDialogMessages(dialog.messages);
+      }
+    });
+  }, [dialogs, openDialogUid]);
   return dialogMessages;
 };

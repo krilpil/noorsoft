@@ -16,14 +16,16 @@ const ChatInput: React.FC<props> = ({ currentUid }) => {
       message: '',
     },
     onSubmit: (values, actions) => {
-      userSendMessage({
-        currentUid,
-        questionerUid: openDialogUid,
-        writtenBy: 'operator',
-        content: values.message,
-      });
-      formik.values.message = '';
-      actions.setSubmitting(false);
+      if (values.message) {
+        userSendMessage({
+          currentUid,
+          questionerUid: openDialogUid,
+          writtenBy: 'operator',
+          content: values.message,
+        });
+        formik.values.message = '';
+        actions.setSubmitting(false);
+      }
     },
   });
 
@@ -36,9 +38,14 @@ const ChatInput: React.FC<props> = ({ currentUid }) => {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           value={formik.values.message}
-          placeholder={'Write a side-message...'}
+          placeholder={'Write a message...'}
+          disabled={!openDialogUid}
         />
-        <Button id={'button'} htmlType={'submit'}>
+        <Button
+          id={'button'}
+          htmlType={'submit'}
+          disabled={!openDialogUid || !formik.values.message}
+        >
           Send
         </Button>
       </InputGroup>

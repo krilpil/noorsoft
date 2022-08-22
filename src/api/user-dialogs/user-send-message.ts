@@ -9,9 +9,17 @@ interface IQueryArg extends UserSendMessageType {
 }
 
 export const userSendMessage = ({ writtenBy, content, currentUid, questionerUid }: IQueryArg) => {
-  push(ref(firebaseDb, `operators/${currentUid}/questions/${questionerUid}/messages`), {
-    writtenBy,
-    content,
-    timestamp: firebaseTimestamp(),
-  });
+  try {
+    if (questionerUid.length) {
+      push(ref(firebaseDb, `operators/${currentUid}/questions/${questionerUid}/messages`), {
+        writtenBy,
+        content,
+        timestamp: firebaseTimestamp(),
+      });
+    } else {
+      throw new Error('You cannot enter a message outside of an open dialog');
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };

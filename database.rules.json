@@ -1,15 +1,24 @@
 {
     "rules": {
-        "users": {
+        "operators": {
             "$uid": {
                 ".read": "$uid === auth.uid",
                 ".write": "$uid === auth.uid",
                 "status": { ".validate": true },
-                "operatorId": { ".validate": true },
-                "messages": {
-                    "writtenBy": { ".validate": true },
-                    "content": { ".validate": true },
-                    "timestamp": { ".validate": true }
+                "name": { ".validate": true },
+                "surname": { ".validate": true },
+                "questions": {
+                    "$question": {
+                        "name": { ".validate": true },
+                        "surname": { ".validate": true },
+                        "messages": {
+                            "$message" : {
+                                "writtenBy": { ".validate": true },
+                                "content": { ".validate": true },
+                                "timestamp": { ".validate": true }
+                            }
+                        }
+                    }
                 },
                 "$other": { ".validate": false }
             }

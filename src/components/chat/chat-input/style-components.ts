@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Input as AntInput, Layout as AntLayout, Button as AntButton } from 'antd';
+import { Button as AntButton, Input as AntInput, Layout as AntLayout } from 'antd';
 
 export const InputGroup = styled.form`
   display: flex;
@@ -21,6 +21,13 @@ export const Button = styled(AntButton)`
   width: max-content;
   border-radius: 15px;
   border: none;
-  background-color: #3596fe;
+  background-color: #027afe;
   color: #ffffff;
+
+  &:hover,
+  &:focus {
+    color: #ffffff;
+    border-color: #3596fe;
+    background: #3596fe;
+  }
 `;

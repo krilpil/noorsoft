@@ -7,6 +7,7 @@ import userDialogsSlice from './user-dialogs-slice';
 export const persistConfig = {
   key: 'root',
   storage: storage,
+  whitelist: ['userAuth'],
 };
 
 export const rootReducer = persistCombineReducers(persistConfig, {

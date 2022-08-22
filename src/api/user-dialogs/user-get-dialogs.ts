@@ -1,9 +1,7 @@
 import { onValue, ref } from 'firebase/database';
 import { UserDialogType, UserMessageType } from '../../types/user-message-type';
 import { firebaseDb } from '../../config/firebase';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { setDialogs } from '../../redux/slices/user-dialogs-slice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 interface IUserDialogFetch {
   [questionerUid: string]: {
@@ -16,8 +14,8 @@ interface IUserDialogFetch {
   };
 }
 
-export const useSetUserDialogs = (currentUid: string): void => {
-  const dispatch = useAppDispatch();
+export const useGetUserDialogs = (currentUid: string): UserDialogType[] => {
+  const [userDialogs, setUserDialogs] = useState<UserDialogType[]>([]);
 
   useEffect(() => {
     onValue(ref(firebaseDb, `operators/${currentUid}/questions`), (firebaseMessages) => {
@@ -34,7 +32,9 @@ export const useSetUserDialogs = (currentUid: string): void => {
         });
       });
 
-      dispatch(setDialogs(dialogs));
+      setUserDialogs(dialogs);
     });
   }, [currentUid]);
+
+  return userDialogs;
 };

@@ -22,23 +22,6 @@ export const Title = styled(Typography.Title)`
   }
 `;
 
-export const InputSider = styled(AntInput)`
-  & input.ant-input {
-    background-color: #3596fe;
-    color: #ffffff;
-
-    &::placeholder {
-      color: #ffffff;
-    }
-  }
-
-  padding: 10px 15px;
-  color: #ffffff;
-  background-color: #3596fe;
-  border: none;
-  border-radius: 5px;
-`;
-
 export const SideHeader = styled(AntLayout.Header)`
   height: max-content;
   padding: 15px 20px 10px;

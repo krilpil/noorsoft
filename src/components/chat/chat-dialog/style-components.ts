@@ -11,6 +11,14 @@ export const Dialog = styled(AntLayout.Content)`
   overflow-y: scroll;
 `;
 
+export const EmptyDialog = styled(AntLayout.Content)`
+  display: flex;
+  color: #3596fe;
+  align-items: center;
+  align-self: center;
+  text-align: center;
+`;
+
 export const Text = styled(Typography.Paragraph)`
   &.ant-typography {
     margin-bottom: 0;
