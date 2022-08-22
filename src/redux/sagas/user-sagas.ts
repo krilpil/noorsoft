@@ -17,7 +17,7 @@ import {
   userSignup,
   userSignupFailure,
   userSignupSuccess,
-} from '../slices/user-slices';
+} from '../slices/user-authorization-slice';
 import { UserData, UserFormData } from '../../types/user-type';
 import { UserLoginService } from '../../api/user-authorization/user-login';
 import { UserSignupService } from '../../api/user-authorization/user-signup';
@@ -73,7 +73,7 @@ export function* workerForgotPasswordForm(action: { type: string; payload: strin
   const responseForgotPassword: string = yield call(UserForgotPasswordService, action.payload);
 
   responseForgotPassword === null
-    ? yield put(userForgotPasswordSuccess())
+    ? yield put(userForgotPasswordSuccess(responseForgotPassword))
     : yield put(userForgotPasswordFailure(responseForgotPassword));
 }
 
@@ -96,7 +96,7 @@ export function* workerResetPasswordForm(action: {
   );
 
   responseResetPassword === null
-    ? yield put(userResetPasswordSuccess())
+    ? yield put(userResetPasswordSuccess(responseResetPassword))
     : yield put(userResetPasswordFailure(responseResetPassword));
 }
 

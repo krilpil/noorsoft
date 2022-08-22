@@ -32,6 +32,7 @@
         "@typesctipt-eslint/ban-ts-comment": "off",
         "@typesctipt-eslint/ban-types": "off",
         "no-unused-vars": "off",
-        "spaced-comment": ["error", "always"]
+        "spaced-comment": ["error", "always"],
+        "max-len": ["error", { "code": 120 }]
     }
 }

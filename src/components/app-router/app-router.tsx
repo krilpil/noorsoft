@@ -1,10 +1,17 @@
-import React from 'react';
-import { useAppSelector } from '../../hooks/redux-hooks';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { Route, Routes } from 'react-router-dom';
 import { privateRoutes, publicRoutes } from '../../router/router';
+import { userCheckAuth } from '../../redux/slices/user-authorization-slice';
 
 const AppRouter = () => {
-  const isAuth = useAppSelector((state) => state.root.user.isAuth);
+  const dispatch = useAppDispatch();
+  const currentToken = useAppSelector((state) => state.userAuth.token);
+  const isAuth = useAppSelector((state) => state.userAuth.isAuth);
+
+  useEffect(() => {
+    dispatch(userCheckAuth(currentToken));
+  }, [currentToken, dispatch]);
 
   return isAuth ? (
     <Routes>

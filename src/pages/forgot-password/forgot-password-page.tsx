@@ -15,7 +15,7 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
-import { userForgotPassword } from '../../redux/slices/user-slices';
+import { userForgotPassword } from '../../redux/slices/user-authorization-slice';
 import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
@@ -27,7 +27,7 @@ const ForgotPasswordPage = () => {
   const [isCountingTime, setIsCountingTime] = useState(false);
 
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.root.isLoading);
+  const isRequest = useAppSelector((state) => state.main.isLoading);
 
   const formik = useFormik({
     initialValues: {

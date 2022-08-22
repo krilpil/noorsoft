@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Badge as AntBadge, Typography, Avatar as AntAvatar } from 'antd';
+import { Avatar as AntAvatar, Badge as AntBadge, Typography } from 'antd';
 
 export const Avatar = styled(AntAvatar).attrs({
   size: 50,
@@ -24,12 +24,13 @@ export const Details = styled.div`
   display: grid;
 `;
 
-export const Item = styled.div`
+export const Item = styled.div<{ active?: boolean }>`
   display: grid;
   grid-template-columns: max-content auto max-content;
   grid-gap: 15px;
   cursor: pointer;
   padding: 10px 20px;
+  background-color: ${(props) => (props.active ? '#218dff' : 'inherit')};
 
   &:hover {
     background-color: #3596fe;
@@ -42,5 +43,6 @@ export const Badge = styled(AntBadge)`
     font-weight: 600;
     color: #1890ff;
   }
+
   align-self: center;
 `;

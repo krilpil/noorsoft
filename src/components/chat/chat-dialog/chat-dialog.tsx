@@ -1,31 +1,31 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import { Dialog } from './style-components';
 // import { IconStartDialog } from '../../icons/styled-components';
+import { useAppSelector } from '../../../hooks/redux-hooks';
+import { userFindDialog } from '../../../hooks/use-find-dialogs';
 import Message from './message/message';
-import { UserGetMessagesType } from '../../../types/user-message-type';
 
-type Props = {
-  messages: UserGetMessagesType[];
-};
-
-const ChatDialog: React.FC<Props> = ({ messages }) => {
+const ChatDialog: React.FC = () => {
+  const dialogs = useAppSelector((state) => state.userDialogs.dialogs);
+  const openDialogUid = useAppSelector((state) => state.userDialogs.openDialogUid);
+  const dialog = useMemo(() => userFindDialog(dialogs, openDialogUid), [dialogs, openDialogUid]);
   const messageEndRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView();
-  }, [messages]);
+  }, [dialog]);
 
   return (
     <Dialog>
       {/* <IconStartDialog />*/}
       {/* <p>Choose a chat</p>*/}
 
-      {messages.map((message) => (
+      {dialog.map((message, index) => (
         <Message
-          key={message[1].timestamp}
-          writtenBy={message[1].writtenBy}
-          content={message[1].content}
-          timestamp={message[1].timestamp}
+          key={index}
+          writtenBy={message.writtenBy}
+          content={message.content}
+          timestamp={message.timestamp}
         />
       ))}
 

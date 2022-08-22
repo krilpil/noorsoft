@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Sider,
   InputSider,
   SideHeader,
-  Title,
   SideMessages,
   SidePanel,
+  Sider,
   SiderLoyout,
+  Title,
 } from './styled-components';
 import {
   ArrowFromBracket,
@@ -16,12 +16,19 @@ import {
   IconSearchInput,
 } from '../icons/styled-components';
 import { Helpers } from '../form/styled-components';
-import Message from '../message/message';
-import { useAppDispatch } from '../../hooks/redux-hooks';
-import { userLogout } from '../../redux/slices/user-slices';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { userLogout } from '../../redux/slices/user-authorization-slice';
+import SideMessage from './side-message/side-message';
+// import { firebaseDb } from '../../config/firebase';
+// import { child, ref } from 'firebase/database';
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const dialogs = useAppSelector((state) => state.userDialogs.dialogs);
+
+  // useEffect(() => {
+  //   // console.log(child(ref(firebaseDb, `users`), 'name'));
+  // }, );
 
   return (
     <Sider>
@@ -35,37 +42,21 @@ const Sidebar = () => {
             <IconClose title={'Closed dialogues'} />
           </Helpers>
         </SideHeader>
+        {/* // TODO: Remove avatar update when receiving/sending a side-message*/}
         <SideMessages>
-          <Message
-            src={'https://upload.wikimedia.org/wikipedia/ru/thumb/4/4c/Neo2.jpg/274px-Neo2.jpg'}
-            name={'Neo'}
-            message={'I shouldnt have chosen the red pill'}
-            unread={1}
-          />
-          <Message
-            src={
-              'https://cdna.artstation.com/p/assets/images/images/033/451/774/large/marcin-blaszczak-tr-coat-05.jpg?1609664523'
-            }
-            name={'Trinity'}
-            message={'Do you still love me?'}
-            unread={100}
-          />
-          <Message
-            src={
-              'https://cdnb.artstation.com/p/assets/images/images/033/670/305/large/marcin-blaszczak-m-coat-01.jpg?1610270916'
-            }
-            name={'Morpheus'}
-            message={'Arent you interested in pills?'}
-            unread={0}
-          />
-          <Message
-            src={
-              'https://upload.wikimedia.org/wikipedia/en/1/1f/Agent_Smith_%28The_Matrix_series_character%29.jpg'
-            }
-            name={'Smith'}
-            message={'Hi, where can I meet you?'}
-            unread={18}
-          />
+          {dialogs.map(({ avatar, name, surname, messages, uid }, index) => {
+            return (
+              <SideMessage
+                key={index}
+                uid={uid}
+                avatar={avatar}
+                name={name}
+                surname={surname}
+                lastMessage={messages[messages.length - 1].content}
+                unread={1}
+              />
+            );
+          })}
         </SideMessages>
         <SidePanel>
           <ArrowFromBracket title={'Log out'} onClick={() => dispatch(userLogout())} />

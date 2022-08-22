@@ -1,6 +1,8 @@
 import { persistCombineReducers } from 'redux-persist';
-import userSlices from './user-slices';
 import storage from 'redux-persist/lib/storage';
+import mainSlice from './main-slice';
+import userAuthSlice from './user-authorization-slice';
+import userDialogsSlice from './user-dialogs-slice';
 
 export const persistConfig = {
   key: 'root',
@@ -8,5 +10,7 @@ export const persistConfig = {
 };
 
 export const rootReducer = persistCombineReducers(persistConfig, {
-  root: userSlices,
+  main: mainSlice,
+  userAuth: userAuthSlice,
+  userDialogs: userDialogsSlice,
 });

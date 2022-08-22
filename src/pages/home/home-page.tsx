@@ -1,34 +1,27 @@
-import React, { useEffect } from 'react';
-import { Layout, DialogBlock } from './styled-components';
+import React from 'react';
+import { DialogBlock, Layout } from './styled-components';
 import Sidebar from '../../components/sidebar/sidebar';
 import ChatInput from '../../components/chat/chat-input/chat-input';
 import ChatDialog from '../../components/chat/chat-dialog/chat-dialog';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { userCheckAuth } from '../../redux/slices/user-slices';
-import { useUserGetMessage } from '../../api/user-dialogs/user-get-message';
+import { useAppSelector } from '../../hooks/redux-hooks';
+import { useSetUserDialogs } from '../../api/user-dialogs/user-get-dialogs';
 
 const HomePage = () => {
-  const dispatch = useAppDispatch();
-  const currentToken = useAppSelector((state) => state.root.user.token);
-  const uId = useAppSelector((state) => state.root.user.uid);
-  const isLoading = useAppSelector((state) => state.root.isLoading);
-  const userMessages = useUserGetMessage(uId);
-
-  // TODO: Create api for status and operatorId
-  useEffect(() => {
-    dispatch(userCheckAuth(currentToken));
-  }, [currentToken, dispatch]);
+  const isLoading = useAppSelector((state) => state.main.isLoading);
+  const currentUid = useAppSelector((state) => state.userAuth.uid);
+  useSetUserDialogs(currentUid);
 
   if (isLoading) {
-    return <p>Загрузка...</p>;
+    return <p>Загрузка</p>;
   }
 
+  // TODO: Create api for status and operatorId
   return (
     <Layout>
       <Sidebar />
       <DialogBlock>
-        <ChatDialog messages={userMessages} />
-        <ChatInput />
+        <ChatDialog />
+        <ChatInput currentUid={currentUid} />
       </DialogBlock>
     </Layout>
   );

@@ -21,7 +21,7 @@ import {
   IconVK,
   IconGoogle,
 } from '../../components/icons/styled-components';
-import { userLogin } from '../../redux/slices/user-slices';
+import { userLogin } from '../../redux/slices/user-authorization-slice';
 import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
@@ -31,8 +31,8 @@ const validationSchema = yup.object().shape({
 
 const LoginPage = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.root.isLoading);
-  const isAuth = useAppSelector((state) => state.root.user.isAuth);
+  const isLoading = useAppSelector((state) => state.main.isLoading);
+  const isAuth = useAppSelector((state) => state.userAuth.isAuth);
 
   const formik = useFormik({
     initialValues: {
@@ -56,10 +56,10 @@ const LoginPage = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if (!isAuth && !isRequest) {
+    if (!isAuth && !isLoading) {
       formik.setFieldError('authorization', 'Invalid email or password.');
     }
-  }, [isRequest, isAuth]);
+  }, [isLoading, isAuth]);
 
   return (
     <FormPageWrapper>
@@ -101,10 +101,10 @@ const LoginPage = (): JSX.Element => {
         </Helpers>
         <Button
           block
-          loading={isRequest}
+          loading={isLoading}
           id={'button'}
           htmlType={'submit'}
-          disabled={!formik.isValid || !formik.dirty || isRequest}
+          disabled={!formik.isValid || !formik.dirty || isLoading}
         >
           Log in
         </Button>

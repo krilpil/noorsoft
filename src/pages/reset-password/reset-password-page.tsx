@@ -8,7 +8,7 @@ import { IconUserAstronaut } from '../../components/icons/styled-components';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { message } from 'antd';
-import { userResetPassword } from '../../redux/slices/user-slices';
+import { userResetPassword } from '../../redux/slices/user-authorization-slice';
 import { RouterLinks } from '../../router/router';
 
 const validationSchema = yup.object().shape({
@@ -29,8 +29,8 @@ const ResetPasswordPage = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const isLoading: boolean = useAppSelector((state) => state.root.isLoading);
-  const error: string = useAppSelector((state) => state.root.error);
+  const isLoading: boolean = useAppSelector((state) => state.main.isLoading);
+  const error: string = useAppSelector((state) => state.main.error);
 
   const formik = useFormik({
     initialValues: {

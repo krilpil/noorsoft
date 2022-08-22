@@ -21,7 +21,7 @@ import { message } from 'antd';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { userSignup } from '../../redux/slices/user-slices';
+import { userSignup } from '../../redux/slices/user-authorization-slice';
 import { RouterLinks } from '../../router/router';
 
 const notWorking = () => {
@@ -49,8 +49,8 @@ const validationSchema = yup.object().shape({
 
 const SignupPage = () => {
   const dispatch = useAppDispatch();
-  const isRequest = useAppSelector((state) => state.root.isLoading);
-  const error = useAppSelector((state) => state.root.error);
+  const isRequest = useAppSelector((state) => state.main.isLoading);
+  const error = useAppSelector((state) => state.main.error);
 
   const formik = useFormik({
     initialValues: {
