@@ -11,6 +11,8 @@
                     "$question": {
                         "name": { ".validate": true },
                         "surname": { ".validate": true },
+                        "avatar": { ".validate": true },
+                        "status": { ".validate": true },
                         "messages": {
                             "$message" : {
                                 "writtenBy": { ".validate": true },

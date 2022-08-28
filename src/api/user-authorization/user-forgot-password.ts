@@ -7,6 +7,6 @@ export const UserForgotPasswordService = (email: string): Promise<string> => {
       return '';
     })
     .catch((error) => {
-      return error.message;
+      throw new Error(error.message);
     });
 };

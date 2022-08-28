@@ -52,7 +52,6 @@ const ResetPasswordPage = () => {
   useEffect(() => {
     if (error.length === 0 && !isLoading && formik.dirty) {
       message.success('Successful password change');
-      // TODO: Check for work in the state and remove
       navigate(RouterLinks.LOGIN);
     }
   }, [isLoading, error]);

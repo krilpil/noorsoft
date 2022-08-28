@@ -16,8 +16,13 @@ const userAuthSlice = createSlice({
   reducers: {
     // USER LOGIN
     userLogin: (state, action: PayloadAction<UserFormData>) => state,
-    userLoginSuccess: (state, action: PayloadAction<UserData>) => state,
-    userLoginFailure: (state, action: PayloadAction<UserData>) => state,
+    userLoginSuccess: (state, action: PayloadAction<UserData>) => action.payload,
+    userLoginFailure: (state, action: PayloadAction<string>) => {
+      state.isAuth = false;
+      state.email = '';
+      state.token = '';
+      state.uid = '';
+    },
     // CHECK USER AUTH
     userCheckAuth: (state, action: PayloadAction<string>) => state,
     userCheckAuthSuccess: (state, action: PayloadAction<boolean>) => state,
@@ -39,14 +44,12 @@ const userAuthSlice = createSlice({
     userResetPasswordSuccess: (state, action: PayloadAction<string>) => state,
     userResetPasswordFailure: (state, action: PayloadAction<string>) => state,
     // USER LOGOUT
-    userLogout: (state) => state,
+    userLogout: () => initialState,
   },
   extraReducers: (builder) => {
-    builder
-      .addMatcher(isAnyOf(userLoginSuccess, userLoginFailure), (state, action) => action.payload)
-      .addMatcher(isAnyOf(userCheckAuthSuccess, userCheckAuthFailure), (state, action) => {
-        state.isAuth = action.payload;
-      });
+    builder.addMatcher(isAnyOf(userCheckAuthSuccess, userCheckAuthFailure), (state, action) => {
+      state.isAuth = action.payload;
+    });
   },
 });
 

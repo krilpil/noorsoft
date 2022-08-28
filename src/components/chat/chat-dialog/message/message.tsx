@@ -1,6 +1,6 @@
 import React from 'react';
-import { MessageBlock } from './style-components';
-import { Text, Time } from '../style-components';
+import { MessageBlock } from './styled-components';
+import { Text, Time } from '../styled-components';
 import { UserMessageType } from '../../../../types/user-message-type';
 import { firebaseTime } from '../../../../helpers/firebase-timestamp';
 

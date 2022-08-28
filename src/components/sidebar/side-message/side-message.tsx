@@ -1,20 +1,27 @@
 import React from 'react';
 import { Avatar, Badge, Details, Item, Name, Text } from './style-components';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { setOpenDialogs } from '../../../redux/slices/user-dialogs-slice';
+import { setCurrentDialog } from '../../../redux/slices/user-dialogs-slice';
 import { UserDialogType } from '../../../types/user-message-type';
 
-type Props = Omit<UserDialogType, 'messages'> & {
+type Props = {
+  dialog: UserDialogType;
   unread: number;
   lastMessage: string;
 };
 
-const SideMessage: React.FC<Props> = ({ avatar, name, surname, uid, lastMessage, unread }) => {
+const SideMessage: React.FC<Props> = ({ dialog, unread, lastMessage }) => {
   const dispatch = useAppDispatch();
-  const openDialogUid = useAppSelector((state) => state.userDialogs.openDialogUid);
+  const currentDialogUid = useAppSelector((state) => state.userDialogs.currentDialog.uid);
+  const { uid, name, surname, avatar } = dialog;
 
   return (
-    <Item active={openDialogUid === uid} onClick={() => dispatch(setOpenDialogs(uid))}>
+    <Item
+      active={currentDialogUid === uid}
+      onClick={() => {
+        dispatch(setCurrentDialog(dialog));
+      }}
+    >
       <Avatar src={avatar} />
       <Details>
         <Name>

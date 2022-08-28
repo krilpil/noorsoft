@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { FormPageWrapper } from '../../components/form/form-page-wrapper/styled-components';
 import {
-  Form,
-  Title,
-  Input,
   Button,
   ButtonLink,
+  Form,
   Helpers,
+  Input,
+  Title,
 } from '../../components/form/styled-components';
 import FormParagraph from '../../components/form/paragraph/pharagraph';
 import { IconUserAstronaut } from '../../components/icons/styled-components';
@@ -42,7 +42,6 @@ const ForgotPasswordPage = () => {
     },
   });
 
-  // TODO: Move to a separate helper
   useEffect(() => {
     const intervalReturnSend = setInterval(() => {
       isCountingTime &&

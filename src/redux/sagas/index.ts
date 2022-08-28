@@ -1,20 +1,7 @@
-import { all } from 'redux-saga/effects';
-import {
-  watchLoginForm,
-  watchSignupForm,
-  watchForgotPasswordForm,
-  watchResetPasswordForm,
-  watchCheckAuth,
-  watchUserLogout,
-} from './user-sagas';
+import { all, fork } from 'redux-saga/effects';
+import userAuthorizationSaga from './user-authorization-sagas';
+import userDialogsSaga from './user-dialogs-sagas';
 
 export default function* rootSaga() {
-  yield all([
-    watchLoginForm(),
-    watchSignupForm(),
-    watchForgotPasswordForm(),
-    watchResetPasswordForm(),
-    watchCheckAuth(),
-    watchUserLogout(),
-  ]);
+  yield all([fork(userAuthorizationSaga), fork(userDialogsSaga)]);
 }

@@ -8,7 +8,6 @@ export const UserSignupService = async ({ email, password }: UserFormData): Prom
       return '';
     })
     .catch((error) => {
-      console.log(error.message);
-      return error.message;
+      throw new Error(error.message);
     });
 };

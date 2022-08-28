@@ -2,17 +2,18 @@ import styled, { css } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
-  faLock,
-  faUserAstronaut,
-  faMagnifyingGlass,
-  faCommentDots,
-  faCommentSlash,
-  faComments,
   faArrowRightFromBracket,
+  faCommentDots,
+  faComments,
+  faCommentSlash,
+  faEllipsis,
+  faLock,
+  faMagnifyingGlass,
+  faUserAstronaut,
 } from '@fortawesome/free-solid-svg-icons';
 
 import { faComments as faCommentsRegular } from '@fortawesome/free-regular-svg-icons';
-import { faVk, faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { faGoogle, faVk } from '@fortawesome/free-brands-svg-icons';
 
 const formIcon = css`
   opacity: 70%;
@@ -109,3 +110,8 @@ export const ArrowFromBracket = styled(FontAwesomeIcon).attrs({
 })`
   ${IconDialogs}
 `;
+
+export const Ellipsis = styled(FontAwesomeIcon).attrs({
+  icon: faEllipsis,
+  size: '2x',
+})``;

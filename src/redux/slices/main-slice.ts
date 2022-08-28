@@ -41,6 +41,9 @@ const mainSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(userLoginSuccess, (state) => {
+        state.error = '';
+      })
       .addMatcher(
         isAnyOf(
           userLogin,
@@ -73,6 +76,7 @@ const mainSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
+          userLoginFailure,
           userSignupSuccess,
           userSignupFailure,
           userForgotPasswordSuccess,

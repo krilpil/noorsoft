@@ -74,7 +74,7 @@ const SignupPage = () => {
     if (error) {
       formik.setFieldError('signup', 'This email address is already registered!');
     }
-  }, [error, formik]);
+  }, [error]);
 
   return (
     <FormPageWrapper>

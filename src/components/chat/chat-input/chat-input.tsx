@@ -9,7 +9,7 @@ type props = {
 };
 
 const ChatInput: React.FC<props> = ({ currentUid }) => {
-  const openDialogUid = useAppSelector((state) => state.userDialogs.openDialogUid);
+  const currentDialogUid = useAppSelector((state) => state.userDialogs.currentDialog.uid);
 
   const formik = useFormik({
     initialValues: {
@@ -19,7 +19,7 @@ const ChatInput: React.FC<props> = ({ currentUid }) => {
       if (values.message) {
         userSendMessage({
           currentUid,
-          questionerUid: openDialogUid,
+          questionerUid: currentDialogUid,
           writtenBy: 'operator',
           content: values.message,
         });
@@ -39,12 +39,12 @@ const ChatInput: React.FC<props> = ({ currentUid }) => {
           onBlur={formik.handleBlur}
           value={formik.values.message}
           placeholder={'Write a message...'}
-          disabled={!openDialogUid}
+          disabled={!currentDialogUid}
         />
         <Button
           id={'button'}
           htmlType={'submit'}
-          disabled={!openDialogUid || !formik.values.message}
+          disabled={!currentDialogUid || !formik.values.message}
         >
           Send
         </Button>

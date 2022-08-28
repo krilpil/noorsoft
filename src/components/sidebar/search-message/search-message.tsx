@@ -3,7 +3,7 @@ import { InputSider } from './styled-components';
 import { IconSearchInput } from '../../icons/styled-components';
 import { useUserFindMessage } from '../../../hooks/use-find-message';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
-import { setDialogs } from '../../../redux/slices/user-dialogs-slice';
+import { setFindMessage } from '../../../redux/slices/user-dialogs-slice';
 import { debounce } from 'lodash';
 
 const SearchMessage: React.FC = () => {
@@ -13,7 +13,11 @@ const SearchMessage: React.FC = () => {
   const findMessages = useUserFindMessage(request);
 
   useEffect(() => {
-    dispatch(setDialogs(findMessages));
+    if (request.length) {
+      dispatch(setFindMessage(findMessages));
+    } else {
+      dispatch(setFindMessage(null));
+    }
   }, [findMessages]);
 
   const inputHandlerChange = debounce((request: string) => setRequest(request), 750);

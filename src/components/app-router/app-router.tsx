@@ -11,7 +11,7 @@ const AppRouter = () => {
 
   useEffect(() => {
     dispatch(userCheckAuth(currentToken));
-  }, [currentToken, dispatch]);
+  }, [currentToken]);
 
   return isAuth ? (
     <Routes>

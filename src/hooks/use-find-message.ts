@@ -1,23 +1,22 @@
 import { useEffect, useState } from 'react';
 import { UserDialogType } from '../types/user-message-type';
 import { useAppSelector } from './redux-hooks';
-import { useGetUserDialogs } from '../api/user-dialogs/user-get-dialogs';
 
 export const useUserFindMessage = (request: string): UserDialogType[] => {
-  const currentUid = useAppSelector((state) => state.userAuth.uid);
-  const dialogs = useGetUserDialogs(currentUid);
+  const dialogs = useAppSelector((state) => state.userDialogs.dialogs);
 
-  const [userFoundMessages, setUserFoundMessages] = useState<UserDialogType[]>([]);
+  const [userFindMessages, setUserFindMessages] = useState<UserDialogType[]>([]);
 
   useEffect(() => {
     dialogs.forEach((dialog) => {
       dialog.messages.forEach((message) => {
         if (message.content === request) {
-          setUserFoundMessages((userFoundMessages) => [
-            ...userFoundMessages,
+          setUserFindMessages((userFindMessages) => [
+            ...userFindMessages,
             {
               name: dialog.name,
               surname: dialog.surname,
+              status: dialog.status,
               avatar: dialog.avatar,
               uid: dialog.uid,
               messages: [message],
@@ -27,7 +26,8 @@ export const useUserFindMessage = (request: string): UserDialogType[] => {
       });
     });
 
-    return () => setUserFoundMessages([]);
+    return () => setUserFindMessages([]);
   }, [request]);
-  return request.length ? userFoundMessages : dialogs;
+
+  return userFindMessages;
 };

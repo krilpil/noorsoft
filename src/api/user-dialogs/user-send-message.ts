@@ -10,7 +10,7 @@ interface IQueryArg extends UserSendMessageType {
 
 export const userSendMessage = ({ writtenBy, content, currentUid, questionerUid }: IQueryArg) => {
   try {
-    if (questionerUid.length) {
+    if (questionerUid.length && content[0] !== ' ') {
       push(ref(firebaseDb, `operators/${currentUid}/questions/${questionerUid}/messages`), {
         writtenBy,
         content,
