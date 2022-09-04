@@ -1,11 +1,12 @@
 import { Timestamp } from 'firebase/firestore';
 
-export const firebaseTimestamp = (): number => {
-  return Timestamp.now().toMillis();
+type dateType = {
+  seconds: number;
+  nanoseconds: number;
 };
 
-export const firebaseTime = (millis: number): string => {
-  const date = Timestamp.fromMillis(millis).toDate();
+export const firebaseTime = ({ seconds }: dateType): string => {
+  const date = Timestamp.fromMillis(seconds * 1000).toDate();
   return `${addZeros(date.getHours())}:${addZeros(date.getMinutes())}`;
 };
 

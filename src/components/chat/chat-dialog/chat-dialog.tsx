@@ -4,21 +4,18 @@ import { IconStartDialog } from '../../icons/styled-components';
 import Message from './message/message';
 import { useAppSelector } from '../../../hooks/redux-hooks';
 
-type props = {
-  openDialogUid: string;
-};
-
-const ChatDialog: React.FC<props> = ({ openDialogUid }) => {
-  const currentDialogMessages = useAppSelector((state) => state.userDialogs.currentDialog.messages);
+const ChatDialog: React.FC = () => {
+  const currentMessages = useAppSelector((state) => state.currentDialog.messages);
   const messageEndRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     messageEndRef.current?.scrollIntoView();
-  }, [currentDialogMessages]);
+  }, [currentMessages]);
 
-  return openDialogUid.length ? (
+  // TODO: Add react-infinite-scroller library
+  return currentMessages.length ? (
     <Dialog>
-      {currentDialogMessages.map((message, index) => (
+      {currentMessages.map((message, index) => (
         <Message
           key={index}
           writtenBy={message.writtenBy}

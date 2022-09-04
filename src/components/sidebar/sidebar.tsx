@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   SideHeader,
   SideMessages,
@@ -7,20 +7,29 @@ import {
   SiderLoyout,
   Title,
 } from './styled-components';
-import { ArrowFromBracket, IconCheck, IconClose, IconSave } from '../icons/styled-components';
+import { ArrowFromBracket } from '../icons/styled-components';
+import {
+  faComment,
+  faCommentDots,
+  faComments,
+  faCommentSlash,
+} from '@fortawesome/free-solid-svg-icons';
 import { Helpers } from '../form/styled-components';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { userLogout } from '../../redux/slices/user-authorization-slice';
-import { setSideMessagesStatus } from '../../redux/slices/user-dialogs-slice';
-import SideMessage from './side-message/side-message';
 import SearchMessage from './search-message/search-message';
+import ButtonDialog from './button-dialog/button-dialog';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import SideMessage from './side-message/side-message';
+import { fetchSideDialogsStatus } from '../../redux/slices/side-dialogs-slice';
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
-  const userDialogs = useAppSelector((state) => state.userDialogs.dialogs);
-  const findDialogs = useAppSelector((state) => state.userDialogs.findMessages);
-  const sideDialogs = findDialogs || userDialogs;
-  const messagesStatus = useAppSelector((state) => state.userDialogs.currentDialog.status);
+  const messagesStatus = useAppSelector((state) => state.sideDialogs.status);
+  const sideMessages = useAppSelector((state) => state.sideDialogs.dialogs);
+
+  useEffect(() => {
+    dispatch(fetchSideDialogsStatus(messagesStatus));
+  }, []);
 
   return (
     <Sider>
@@ -29,37 +38,24 @@ const Sidebar: React.FC = () => {
           <Title level={3}>Noorsoft</Title>
           <SearchMessage />
           <Helpers content={'between'}>
-            <IconCheck
-              active={messagesStatus === 'active'}
-              title={'Active dialogs'}
-              onClick={() => dispatch(setSideMessagesStatus('active'))}
-            />
-            <IconSave
-              active={messagesStatus === 'saved'}
-              title={'Saved dialogs'}
-              onClick={() => dispatch(setSideMessagesStatus('saved'))}
-            />
-            <IconClose
-              active={messagesStatus === 'closed'}
-              title={'Closed dialogues'}
-              onClick={() => dispatch(setSideMessagesStatus('closed'))}
-            />
+            <ButtonDialog status={'pending'} icon={faComment} description={'Pending dialogs'} />
+            <ButtonDialog status={'active'} icon={faComments} description={'Active dialogs'} />
+            <ButtonDialog status={'saved'} icon={faCommentDots} description={'Saved dialogs'} />
+            <ButtonDialog status={'closed'} icon={faCommentSlash} description={'Closed dialogs'} />
           </Helpers>
         </SideHeader>
-        {/* // TODO: Remove avatar update when receiving/sending a side-message*/}
+        {/* // TODO: Add caching to firebase*/}
         <SideMessages>
-          {sideDialogs.map((dialog, index) => {
-            const { messages, status } = dialog;
-            if (status === messagesStatus) {
-              return (
-                <SideMessage
-                  key={index}
-                  dialog={dialog}
-                  lastMessage={messages[messages.length - 1].content}
-                  unread={1}
-                />
-              );
-            }
+          {sideMessages.map(({ status, userId, lastMessage, unread }, index) => {
+            return (
+              <SideMessage
+                key={index}
+                userId={userId}
+                status={status}
+                lastMessage={lastMessage}
+                unread={unread}
+              />
+            );
           })}
         </SideMessages>
         <SidePanel>

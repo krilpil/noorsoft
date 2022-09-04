@@ -1,24 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { InputSider } from './styled-components';
 import { IconSearchInput } from '../../icons/styled-components';
-import { useUserFindMessage } from '../../../hooks/use-find-message';
-import { useAppDispatch } from '../../../hooks/redux-hooks';
-import { setFindMessage } from '../../../redux/slices/user-dialogs-slice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
+import {
+  fetchFindDialogMessage,
+  fetchSideDialogsStatus,
+} from '../../../redux/slices/side-dialogs-slice';
 import { debounce } from 'lodash';
 
 const SearchMessage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const messagesStatus = useAppSelector((state) => state.sideDialogs.status);
   const [request, setRequest] = useState<string>('');
-
-  const findMessages = useUserFindMessage(request);
 
   useEffect(() => {
     if (request.length) {
-      dispatch(setFindMessage(findMessages));
+      dispatch(fetchFindDialogMessage({ request, status: messagesStatus }));
     } else {
-      dispatch(setFindMessage(null));
+      dispatch(fetchSideDialogsStatus(messagesStatus));
     }
-  }, [findMessages]);
+  }, [request]);
 
   const inputHandlerChange = debounce((request: string) => setRequest(request), 750);
 

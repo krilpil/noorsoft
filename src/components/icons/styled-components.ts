@@ -3,9 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import {
   faArrowRightFromBracket,
-  faCommentDots,
-  faComments,
-  faCommentSlash,
   faEllipsis,
   faLock,
   faMagnifyingGlass,
@@ -24,12 +21,6 @@ const formIcon = css`
 
 export const IconLock = styled(FontAwesomeIcon).attrs({
   icon: faLock,
-})`
-  ${formIcon}
-`;
-
-export const IconSearch = styled(FontAwesomeIcon).attrs({
-  icon: faMagnifyingGlass,
 })`
   ${formIcon}
 `;
@@ -66,7 +57,12 @@ export const IconGoogle = styled(FontAwesomeIcon).attrs({
 
 /* ICONS DIALOGS */
 
-const IconDialogs = css<{ active?: boolean }>`
+export const IconStartDialog = styled(FontAwesomeIcon).attrs({
+  icon: faCommentsRegular,
+  size: '3x',
+})``;
+
+const iconDialogsStyled = css<{ active?: boolean }>`
   width: 1.4rem;
   height: 1.4rem;
   opacity: ${(props) => (props.active ? '100%' : '50%')};
@@ -78,37 +74,17 @@ const IconDialogs = css<{ active?: boolean }>`
   }
 `;
 
-export const IconStartDialog = styled(FontAwesomeIcon).attrs({
-  icon: faCommentsRegular,
-  size: '3x',
-})``;
-
-export const IconCheck = styled(FontAwesomeIcon).attrs({
-  icon: faComments,
+export const IconDialogs = styled(FontAwesomeIcon).attrs({
   size: '2x',
 })`
-  ${IconDialogs}
-`;
-
-export const IconSave = styled(FontAwesomeIcon).attrs({
-  icon: faCommentDots,
-  size: '2x',
-})`
-  ${IconDialogs}
-`;
-
-export const IconClose = styled(FontAwesomeIcon).attrs({
-  icon: faCommentSlash,
-  size: '2x',
-})`
-  ${IconDialogs}
+  ${iconDialogsStyled}
 `;
 
 export const ArrowFromBracket = styled(FontAwesomeIcon).attrs({
   icon: faArrowRightFromBracket,
   size: '2x',
 })`
-  ${IconDialogs}
+  ${iconDialogsStyled}
 `;
 
 export const Ellipsis = styled(FontAwesomeIcon).attrs({

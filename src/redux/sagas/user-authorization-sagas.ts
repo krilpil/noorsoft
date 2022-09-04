@@ -24,7 +24,7 @@ import { UserForgotPasswordService } from '../../api/user-authorization/user-for
 import { UserResetPasswordService } from '../../api/user-authorization/user-reset-password';
 import { CheckAuthService } from '../../api/user-authorization/check-auth';
 import { UserLogoutService } from '../../api/user-authorization/user-logout';
-import { actionType, resetPasswordFormType } from '../../types/sagas-type';
+import { actionType, ResetPasswordFormType } from '../../types/sagas-type';
 
 export function* workerLoginForm({ payload }: actionType<UserFormData>) {
   try {
@@ -63,7 +63,7 @@ export function* workerForgotPasswordForm({ payload }: actionType) {
   }
 }
 
-export function* workerResetPasswordForm({ payload }: actionType<resetPasswordFormType>) {
+export function* workerResetPasswordForm({ payload }: actionType<ResetPasswordFormType>) {
   try {
     const responseResetPassword: string = yield call(UserResetPasswordService, {
       password: payload.password,
@@ -81,8 +81,6 @@ export function* workerCheckAuth({ payload }: actionType) {
     const responseCheckAuth: boolean = yield call(CheckAuthService, payload);
     yield put(userCheckAuthSuccess(responseCheckAuth));
   } catch (err) {
-    const { message } = err as Error;
-    console.log(message);
     yield put(userCheckAuthFailure(false));
   }
 }

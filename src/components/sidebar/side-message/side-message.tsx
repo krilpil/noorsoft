@@ -1,25 +1,24 @@
 import React from 'react';
 import { Avatar, Badge, Details, Item, Name, Text } from './style-components';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux-hooks';
-import { setCurrentDialog } from '../../../redux/slices/user-dialogs-slice';
-import { UserDialogType } from '../../../types/user-message-type';
+import {
+  fetchCurrentMessages,
+  setCurrentDialogUser,
+} from '../../../redux/slices/current-dialogs-slice';
+import { UserSideMessageType } from '../../../types/user-message-type';
+import { useGetUserData } from '../../../api/user-dialogs/user-get-data';
 
-type Props = {
-  dialog: UserDialogType;
-  unread: number;
-  lastMessage: string;
-};
-
-const SideMessage: React.FC<Props> = ({ dialog, unread, lastMessage }) => {
+const SideMessage: React.FC<UserSideMessageType> = ({ status, userId, lastMessage, unread }) => {
   const dispatch = useAppDispatch();
-  const currentDialogUid = useAppSelector((state) => state.userDialogs.currentDialog.uid);
-  const { uid, name, surname, avatar } = dialog;
+  const { name, surname, avatar } = useGetUserData(userId);
+  const currentDialogUid = useAppSelector((state) => state.currentDialog.userId);
 
   return (
     <Item
-      active={currentDialogUid === uid}
+      active={currentDialogUid === userId}
       onClick={() => {
-        dispatch(setCurrentDialog(dialog));
+        dispatch(setCurrentDialogUser({ userId, name, surname, avatar, status }));
+        dispatch(fetchCurrentMessages(userId));
       }}
     >
       <Avatar src={avatar} />

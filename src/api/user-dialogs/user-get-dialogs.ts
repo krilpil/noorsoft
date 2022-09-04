@@ -1,18 +1,29 @@
-import { UserDialogFetchType, UserDialogType } from '../../types/user-message-type';
+import { collection, doc, onSnapshot, orderBy, query, setDoc } from 'firebase/firestore';
+import { firestoreDb } from '../../config/firebase';
+import { eventChannel } from 'redux-saga';
+import { UserMessageType } from '../../types/user-message-type';
 
-export const getUserDialogs = (fetchUserDialogs: UserDialogFetchType): UserDialogType[] => {
-  const dialogs: UserDialogType[] = [];
+const queryDialog = (uid: string) => {
+  return query(collection(firestoreDb, 'questions', uid, 'messages'), orderBy('timestamp', 'asc'));
+};
 
-  Object.entries(fetchUserDialogs).forEach((dialog) => {
-    dialogs.push({
-      uid: dialog[0],
-      name: dialog[1].name,
-      surname: dialog[1].surname,
-      status: dialog[1].status,
-      avatar: dialog[1].avatar,
-      messages: Object.values(dialog[1].messages),
+export const getCurrentMessages = (uid: string) => {
+  return eventChannel((emitter) => {
+    const unsubscribe = onSnapshot(queryDialog(uid), (messages) => {
+      const currentMessages: UserMessageType[] = [];
+      messages.forEach((message) => {
+        currentMessages.push({
+          content: message.data().content,
+          timestamp: message.data().timestamp,
+          writtenBy: message.data().writtenBy,
+        });
+      });
+      setDoc(doc(firestoreDb, 'questions', uid), { unread: 0 }, { merge: true });
+      emitter(currentMessages);
     });
-  });
 
-  return dialogs;
+    return () => {
+      unsubscribe();
+    };
+  });
 };

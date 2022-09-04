@@ -1,5 +1,3 @@
-import { UserMessageType } from './user-message-type';
-
 export type UserFormData = {
   email: string;
   password: string;
@@ -12,11 +10,9 @@ export type UserData = {
   uid: string;
 };
 
-export type UserType = {
-  avatar: string;
+export type UserDataType = {
+  userId: string;
   name: string;
   surname: string;
-  status: string;
-  operatorId: string;
-  messages: UserMessageType[];
+  avatar: string;
 };

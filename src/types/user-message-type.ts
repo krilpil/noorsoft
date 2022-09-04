@@ -1,38 +1,30 @@
+import { UserDataType } from "./user-type";
+
+export type StatusDialogType = 'active' | 'saved' | 'closed' | 'pending';
+
 export type UserMessageType = {
   writtenBy: 'client' | 'operator';
   content: string;
-  timestamp: number;
+  timestamp: {
+    seconds: number;
+    nanoseconds: number;
+  };
 };
 
 export type UserSendMessageType = Omit<UserMessageType, 'timestamp'>;
 
-export type UserDialogType = {
-  name: string;
-  surname: string;
+export type UserDialogType = UserDataType & {
+  status: StatusDialogType | '';
+};
+
+export type UserSideMessageType = {
   status: StatusDialogType;
-  avatar: string;
-  uid: string;
-  messages: UserMessageType[];
+  userId: string;
+  lastMessage: string;
+  unread: number;
 };
-
-export type UserDialogFetchType = {
-  [questionerUid: string]: {
-    name: string;
-    surname: string;
-    status: StatusDialogType;
-    avatar: string;
-    messages: {
-      [message: string]: UserMessageType;
-    };
-  };
-};
-
-export type StatusDialogType = 'active' | 'saved' | 'closed';
-
-export type UserWrittenByType = Pick<UserMessageType, 'writtenBy'>;
 
 export type UserChangeStatusType = {
-  currentUid: string;
-  questionerUid: string;
+  userId: string;
   status: StatusDialogType;
 };

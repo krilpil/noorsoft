@@ -1,20 +1,32 @@
-import { push, ref } from 'firebase/database';
-import { firebaseDb } from '../../config/firebase';
+import { addDoc, collection, doc, runTransaction, Timestamp } from 'firebase/firestore';
+import { firestoreDb } from '../../config/firebase';
 import { UserSendMessageType } from '../../types/user-message-type';
-import { firebaseTimestamp } from '../../helpers/firebase-timestamp';
 
-interface IQueryArg extends UserSendMessageType {
-  currentUid: string;
-  questionerUid: string;
-}
+type userSendMessageType = UserSendMessageType & {
+  questionId: string;
+};
 
-export const userSendMessage = ({ writtenBy, content, currentUid, questionerUid }: IQueryArg) => {
+export const userSendMessage = ({ writtenBy, content, questionId }: userSendMessageType) => {
   try {
-    if (questionerUid.length && content[0] !== ' ') {
-      push(ref(firebaseDb, `operators/${currentUid}/questions/${questionerUid}/messages`), {
-        writtenBy,
-        content,
-        timestamp: firebaseTimestamp(),
+    if (questionId.length && content[0] !== ' ') {
+      addDoc(collection(firestoreDb, 'questions', questionId, 'messages'), {
+        content: content,
+        timestamp: Timestamp.now(),
+        writtenBy: writtenBy,
+      });
+
+      // TODO: useless transaction - updates messages; Delete when the mobile app appears
+      runTransaction(firestoreDb, async (transaction) => {
+        const userDocRef = doc(firestoreDb, 'questions', questionId);
+
+        const userDoc = await transaction.get(userDocRef);
+        if (!userDoc.exists()) {
+          throw new Error('Document questions does not exist!');
+        }
+
+        const unreadCount = userDoc.data().unread;
+        transaction.update(userDocRef, { unread: unreadCount + 1 });
+        return unreadCount;
       });
     } else {
       throw new Error('You cannot enter a message outside of an open dialog');

@@ -4,12 +4,8 @@ import { useFormik } from 'formik';
 import { userSendMessage } from '../../../api/user-dialogs/user-send-message';
 import { useAppSelector } from '../../../hooks/redux-hooks';
 
-type props = {
-  currentUid: string;
-};
-
-const ChatInput: React.FC<props> = ({ currentUid }) => {
-  const currentDialogUid = useAppSelector((state) => state.userDialogs.currentDialog.uid);
+const ChatInput: React.FC = () => {
+  const currentDialogUid = useAppSelector((state) => state.currentDialog.userId);
 
   const formik = useFormik({
     initialValues: {
@@ -18,8 +14,7 @@ const ChatInput: React.FC<props> = ({ currentUid }) => {
     onSubmit: (values, actions) => {
       if (values.message) {
         userSendMessage({
-          currentUid,
-          questionerUid: currentDialogUid,
+          questionId: currentDialogUid,
           writtenBy: 'operator',
           content: values.message,
         });
