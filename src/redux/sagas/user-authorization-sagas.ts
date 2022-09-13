@@ -91,7 +91,7 @@ export function* workerUserLogout() {
 
 export default function* userAuthorizationSaga() {
   yield all([
-    takeLatest(userLogout.type, workerCheckAuth),
+    takeLatest(userLogout.type, workerUserLogout),
     takeLatest(userCheckAuth.type, workerCheckAuth),
     takeLatest(userResetPassword.type, workerResetPasswordForm),
     takeLatest(userForgotPassword.type, workerForgotPasswordForm),

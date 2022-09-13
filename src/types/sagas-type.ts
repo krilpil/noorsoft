@@ -14,3 +14,8 @@ export type FindMessagesType = {
   request: string;
   status: StatusDialogType;
 };
+
+export interface GetSideDialogsType {
+  status: StatusDialogType;
+  operator: string;
+}

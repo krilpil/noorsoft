@@ -11,11 +11,12 @@ import { StatusDialogType } from '../../../types/user-message-type';
 
 const ChatInfo = () => {
   const dispatch = useAppDispatch();
+  const operatorId = useAppSelector((state) => state.userAuth.uid);
   const { avatar, name, surname, status, userId } = useAppSelector((state) => state.currentDialog);
 
   const onClickSettings: MenuProps['onClick'] = ({ key }) => {
     const status = key as StatusDialogType;
-    dispatch(setQuestionStatus({ userId, status }));
+    dispatch(setQuestionStatus({ operatorId, questionId: userId, status }));
   };
 
   const settingsItems = itemsMenuChat.reduce((accum: itemsMenuChatType[], item) => {

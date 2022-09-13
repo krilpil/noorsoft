@@ -24,11 +24,12 @@ import { fetchSideDialogsStatus } from '../../redux/slices/side-dialogs-slice';
 
 const Sidebar: React.FC = () => {
   const dispatch = useAppDispatch();
+  const operator = useAppSelector((state) => state.userAuth.uid);
   const messagesStatus = useAppSelector((state) => state.sideDialogs.status);
   const sideMessages = useAppSelector((state) => state.sideDialogs.dialogs);
 
   useEffect(() => {
-    dispatch(fetchSideDialogsStatus(messagesStatus));
+    dispatch(fetchSideDialogsStatus({ status: messagesStatus, operator }));
   }, []);
 
   return (

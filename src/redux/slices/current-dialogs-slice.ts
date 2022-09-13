@@ -1,5 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { StatusDialogType, UserDialogType, UserMessageType } from '../../types/user-message-type';
+import {
+  UserChangeStatusType,
+  UserDialogType,
+  UserMessageType,
+} from '../../types/user-message-type';
 
 type state = UserDialogType & {
   messages: UserMessageType[];
@@ -25,14 +29,11 @@ export const currentDialogSlice = createSlice({
       state.avatar = action.payload.avatar;
       state.status = action.payload.status;
     },
-    fetchCurrentMessages: (state, action: PayloadAction<string>) => state,
+    fetchCurrentMessages: (state, _action: PayloadAction<string>) => state,
     setCurrentMessages: (state, action: PayloadAction<UserMessageType[]>) => {
       state.messages = action.payload;
     },
-    setQuestionStatus: (
-      state,
-      action: PayloadAction<{ status: StatusDialogType; userId: string }>
-    ) => state,
+    setQuestionStatus: (state, _action: PayloadAction<UserChangeStatusType>) => state,
   },
 });
 

@@ -1,4 +1,4 @@
-import { UserDataType } from "./user-type";
+import { UserDataType } from './user-type';
 
 export type StatusDialogType = 'active' | 'saved' | 'closed' | 'pending';
 
@@ -25,6 +25,7 @@ export type UserSideMessageType = {
 };
 
 export type UserChangeStatusType = {
-  userId: string;
+  operatorId: string;
+  questionId: string;
   status: StatusDialogType;
 };

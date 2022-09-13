@@ -1,4 +1,4 @@
-import { addDoc, collection, doc, runTransaction, Timestamp } from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc, Timestamp } from 'firebase/firestore';
 import { firestoreDb } from '../../config/firebase';
 import { UserSendMessageType } from '../../types/user-message-type';
 
@@ -15,19 +15,7 @@ export const userSendMessage = ({ writtenBy, content, questionId }: userSendMess
         writtenBy: writtenBy,
       });
 
-      // TODO: useless transaction - updates messages; Delete when the mobile app appears
-      runTransaction(firestoreDb, async (transaction) => {
-        const userDocRef = doc(firestoreDb, 'questions', questionId);
-
-        const userDoc = await transaction.get(userDocRef);
-        if (!userDoc.exists()) {
-          throw new Error('Document questions does not exist!');
-        }
-
-        const unreadCount = userDoc.data().unread;
-        transaction.update(userDocRef, { unread: unreadCount + 1 });
-        return unreadCount;
-      });
+      setDoc(doc(firestoreDb, 'questions', questionId), { lastMessage: content }, { merge: true });
     } else {
       throw new Error('You cannot enter a message outside of an open dialog');
     }

@@ -10,6 +10,7 @@ import { debounce } from 'lodash';
 
 const SearchMessage: React.FC = () => {
   const dispatch = useAppDispatch();
+  const operator = useAppSelector((state) => state.userAuth.uid);
   const messagesStatus = useAppSelector((state) => state.sideDialogs.status);
   const [request, setRequest] = useState<string>('');
 
@@ -17,7 +18,7 @@ const SearchMessage: React.FC = () => {
     if (request.length) {
       dispatch(fetchFindDialogMessage({ request, status: messagesStatus }));
     } else {
-      dispatch(fetchSideDialogsStatus(messagesStatus));
+      dispatch(fetchSideDialogsStatus({ status: messagesStatus, operator }));
     }
   }, [request]);
 

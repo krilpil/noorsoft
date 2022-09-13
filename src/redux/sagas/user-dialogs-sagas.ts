@@ -1,7 +1,6 @@
 import { all, call, put, take, takeLatest } from 'redux-saga/effects';
-import { actionType, FindMessagesType } from '../../types/sagas-type';
+import { actionType, FindMessagesType, GetSideDialogsType } from '../../types/sagas-type';
 import {
-  StatusDialogType,
   UserChangeStatusType,
   UserMessageType,
   UserSideMessageType,
@@ -24,14 +23,18 @@ import { getFindMessages } from '../../api/user-dialogs/user-find-messages';
 
 function* workerSetQuestionStatus({ payload }: actionType<UserChangeStatusType>) {
   try {
-    yield call(userSetStatus, { userId: payload.userId, status: payload.status });
-    yield put(fetchSideDialogsStatus(payload.status));
+    yield call(userSetStatus, {
+      operatorId: payload.operatorId,
+      questionId: payload.questionId,
+      status: payload.status,
+    });
+    yield put(fetchSideDialogsStatus({ status: payload.status, operator: payload.operatorId }));
   } catch (e) {
     console.log(e);
   }
 }
 
-function* workerSetSideDialogsStatus({ payload }: actionType<StatusDialogType>) {
+function* workerSetSideDialogsStatus({ payload }: actionType<GetSideDialogsType>) {
   const sideMessagesChannel: EventChannel<UserSideMessageType[]> = yield call(
     getSideDialogs,
     payload

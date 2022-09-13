@@ -14,13 +14,18 @@ type props = {
 const ButtonDialog: React.FC<props> = ({ status, icon, description }) => {
   const dispatch = useAppDispatch();
   const messagesStatus = useAppSelector((state) => state.sideDialogs.status);
+  const operator = useAppSelector((state) => state.userAuth.uid);
+
+  const onClickHandler = () => {
+    dispatch(fetchSideDialogsStatus({ status, operator }));
+  };
 
   return (
     <IconDialogs
       icon={icon}
       title={description}
       active={messagesStatus === status}
-      onClick={() => dispatch(fetchSideDialogsStatus(status))}
+      onClick={() => onClickHandler()}
     />
   );
 };

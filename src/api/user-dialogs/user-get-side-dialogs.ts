@@ -1,10 +1,19 @@
 import { eventChannel } from 'redux-saga';
 import { collection, getDocs, limit, onSnapshot, orderBy, query, where } from 'firebase/firestore';
 import { firestoreDb } from '../../config/firebase';
-import { StatusDialogType, UserSideMessageType } from '../../types/user-message-type';
+import { UserSideMessageType } from '../../types/user-message-type';
+import { GetSideDialogsType } from '../../types/sagas-type';
 
-const queryQuestions = (status: StatusDialogType) => {
-  return query(collection(firestoreDb, 'questions'), where('status', '==', status));
+const queryQuestions = ({ status, operator }: GetSideDialogsType) => {
+  if (status === 'pending') {
+    return query(collection(firestoreDb, 'questions'), where('status', '==', status));
+  } else {
+    return query(
+      collection(firestoreDb, 'questions'),
+      where('status', '==', status),
+      where('operator', '==', operator)
+    );
+  }
 };
 
 const queryLastMessages = (dialogId: string) => {
@@ -15,9 +24,10 @@ const queryLastMessages = (dialogId: string) => {
   );
 };
 
-export const getSideDialogs = (status: StatusDialogType) => {
+export const getSideDialogs = ({ status, operator }: GetSideDialogsType) => {
+  console.log(operator);
   return eventChannel((emitter) => {
-    const unsubscribe = onSnapshot(queryQuestions(status), (snapshot) => {
+    const unsubscribe = onSnapshot(queryQuestions({ status, operator }), (snapshot) => {
       const sideDialogs: UserSideMessageType[] = [];
 
       if (snapshot.docs.length === 0) {
