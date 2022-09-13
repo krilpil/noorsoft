@@ -14,5 +14,4 @@ export type UserDataType = {
   userId: string;
   name: string;
   surname: string;
-  avatar: string;
 };

@@ -13,7 +13,6 @@ const initialState: state = {
   userId: '',
   name: '',
   surname: '',
-  avatar: '',
   status: '',
   messages: [],
 };
@@ -26,7 +25,6 @@ export const currentDialogSlice = createSlice({
       state.userId = action.payload.userId;
       state.name = action.payload.name;
       state.surname = action.payload.surname;
-      state.avatar = action.payload.avatar;
       state.status = action.payload.status;
     },
     fetchCurrentMessages: (state, _action: PayloadAction<string>) => state,

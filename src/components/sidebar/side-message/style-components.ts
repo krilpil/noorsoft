@@ -1,9 +1,5 @@
 import styled from 'styled-components';
-import { Avatar as AntAvatar, Badge as AntBadge, Typography } from 'antd';
-
-export const Avatar = styled(AntAvatar).attrs({
-  size: 50,
-})``;
+import { Badge as AntBadge, Typography } from 'antd';
 
 export const Name = styled.span`
   font-size: 1rem;
